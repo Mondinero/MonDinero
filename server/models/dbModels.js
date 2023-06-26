@@ -2,12 +2,12 @@ const pkg = require('pg');
 
 const PG_URI = 'mondinero-prod-instance-1.cejnzawepqxu.us-east-1.rds.amazonaws.com';
 const pool = new pkg.Pool({
-  connectionString: PG_URI,
+  host: PG_URI,
   database: 'mondinerodb',
   user: 'mondineroadmin',
-  password: 123456789,
+  password: '123456789',
   port: 5432,
-  ssl: true,
+  ssl: false,
 });
 
 pool.connect((err) => {
