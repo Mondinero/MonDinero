@@ -15,7 +15,7 @@ if (process.env.NODE_ENV === 'production') {
 
 app.use('/assets', express.static(path.resolve(__dirname, '../src/assets')));
 
-// Router to be updated
+// Routers to be updated
 // app.use('/server', myRouter);
 
 // 404 error handler
