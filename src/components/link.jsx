@@ -7,7 +7,7 @@ const Link = (props) => {
     fetch('/api/exchange_public_token', {
       method: 'POST',
       body: JSON.stringify({ public_token }),
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json' },
     })
       .then((resp) => resp.json())
       .then((data) => {
@@ -16,16 +16,14 @@ const Link = (props) => {
         }
       })
       .catch((err) => {
-        console.log(
-          `Encountered error while requesting to exchange/store access token: ${err}`
-        );
+        console.log(`Encountered error while requesting to exchange/store access token: ${err}`);
       });
   }, []);
 
   const config = {
     token: linkToken,
     receivedRedirectUri: null,
-    onSuccess
+    onSuccess,
   };
   console.log(config);
   const { open, ready, error } = usePlaidLink(config);
