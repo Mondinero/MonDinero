@@ -5,12 +5,15 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 
 module.exports = {
+  mode: 'development',
   entry: ['./src/index.js'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
     filename: 'bundle.js',
   },
+
+  target: 'web',
   devtool: 'eval-source-map',
   mode: process.env.NODE_ENV,
 
@@ -40,16 +43,32 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /.(js|jsx)$/,
-        exclude: /node_modules/,
+        test: /\.jsx?/,
+        exclude: /(node_modules)/,
         use: {
           loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+          },
         },
       },
       {
-        test: /.(css|scss)$/,
+        test: /\.(ts|tsx)$/,
+        exclude: /node_modules/,
+        use: ['ts-loader'],
+      },
+      {
+        test: /\.s[ac]ss$/i,
         exclude: /node_modules/,
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ],
       },
     ],
   },
@@ -65,6 +84,6 @@ module.exports = {
     maxAssetSize: 512000,
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.json'],
   },
 }
