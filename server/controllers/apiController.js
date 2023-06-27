@@ -1,6 +1,6 @@
 const { LinkTokenCreateRequest, Products, CountryCode } = require('plaid');
-const client = require('./server');
-const ErrorHandler = require('./errorHandler');
+const client = require('../server');
+const ErrorHandler = require('../errorHandler');
 
 const apiController = {};
 const errorHandler = new ErrorHandler('apiController');
@@ -10,13 +10,13 @@ apiController.createLinkToken = (req, res, next) => {
   const clientUserId = user.id;
   const request = {
     user: {
-      client_user_id: clientUserId
+      client_user_id: clientUserId,
     },
     client_name: 'OurAppName',
     products: [Products.Auth],
     language: 'en',
     //redirect_uri: 'https://localhost:3000/',
-    country_codes: [CountryCode.Us]
+    country_codes: [CountryCode.Us],
   };
 
   client
@@ -41,7 +41,7 @@ apiController.exchangePublicToken = (req, res, next) => {
   const { public_token } = req.body;
   client
     .itemPublicTokenExchange({
-      public_token: public_token
+      public_token: public_token,
     })
     .then((resp) => {
       //Save these to DB and associate with current user
