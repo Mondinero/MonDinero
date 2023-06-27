@@ -1,15 +1,14 @@
 @import '_colors.scss';
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
-body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #11303c;
-}
+
 .container {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
+  background-color: #11303c;
+  font-family: 'Roboto', sans-serif;
 }
 
 .content {

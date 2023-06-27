@@ -4,8 +4,9 @@ export const appSlice = createSlice({
   name: 'appSlice',
   initialState: {
     username: null,
-    firstName: null,
-    errorMessage: ''
+    firstName: 'Clyde',
+    errorMessage: '',
+    monthlyIncome: null
   },
 
   reducers: {
@@ -17,6 +18,9 @@ export const appSlice = createSlice({
     },
     setErrorMsg: (state, action) => {
       state.errorMessage = action.payload
+    },
+    setMonthlyIncome: (state, action) => {
+      state.monthlyIncome = action.payload
     }
   },
 
@@ -26,7 +30,8 @@ export const appSlice = createSlice({
 export const {
   setUserName,
   setFirstName,
-  setErrorMsg
+  setErrorMsg,
+  setMonthlyIncome,
 
 } = appSlice.actions;
 export default  appSlice.reducer;
