@@ -55,23 +55,23 @@ function SignupPage () {
     <React.Fragment>
       <div className={styles.container}>
         <div className={styles.content}>
-        <i className={`fa-solid fa-arrow-up ${styles.logo} `}></i>
-        <p className={styles.loginText}>Create Account</p>
-      
-        <form action="">
-          <input type="text" placeholder="First name" className={styles.input} />
-          <input type="text" placeholder="username" className={styles.input}/>
-          <input type="password" placeholder="password" className={styles.input} />
-          <button type="submit" className={styles.primaryBtn} onClick={() => {
-            handleSignup()
-          }}>Sign Up</button>
-        </form>
+          <i className={`fa-solid fa-arrow-up ${styles.logo} `}></i>
+          <p className={styles.loginText}>Create Account</p>
+        
+          <form action="" className={styles.form}>
+            <input type="text" placeholder="First name" className={styles.input} />
+            <input type="text" placeholder="username" className={styles.input}/>
+            <input type="password" placeholder="password" className={styles.input} />
+            <button type="submit" className={styles.primaryBtn} onClick={() => {
+              handleSignup()
+            }}>Sign Up</button>
+          </form>
 
-        <button className={styles.secondaryBtn} onClick={() => {
-          navigate('/loginPage');
-        }}>
-          Already have an account?</button>
-          </div>
+          <button className={styles.secondaryBtn} onClick={() => {
+            navigate('/loginPage');
+          }}>
+            Already have an account?</button>
+        </div>
           
       </div>
     </React.Fragment>

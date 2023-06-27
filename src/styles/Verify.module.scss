@@ -13,7 +13,7 @@ body {
 }
 
 .content {
-  background-color: white;
+  background-color: $firstColor;
   display: flex;
   flex-direction: column;
   border: 1px solid black;
@@ -48,7 +48,8 @@ body {
   align-self: center;
   padding: 0.2rem;
   border-radius: 5px;
-  background-color: $fourthColor;
+  background-color: #11303c;
+  color: $fourthColor;
 }
 
 .secondaryBtn {
@@ -58,12 +59,14 @@ body {
   text-align: center;
   border-radius: 5px;
   font-size: 0.9rem;
-  background-color: $fourthColor;
+  background-color: #11303c;
+  color: $fourthColor;
   
 }
 
 .loginText {
   font-size: 2rem;
+  color: white;
 }
 
 
@@ -74,3 +77,6 @@ body {
   // z-index: 1;
   // // left: calc(50vw - 240px);
 }
+
+
+

@@ -56,7 +56,7 @@ function LoginPage() {
             <button type="submit" className={styles.primaryBtn} onClick={handleLogin}>Login</button>
           </form>
           
-          <button className={styles.secondaryBtn} onClick={() => {
+          <button className={`${styles.secondaryBtn}`} onClick={() => {
             navigate('/signupPage')
           }}>
             Not a member?
