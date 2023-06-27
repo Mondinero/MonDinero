@@ -9,10 +9,13 @@ const Link = (props) => {
       body: JSON.stringify({ public_token }),
       headers: { 'Content-Type': 'application/json' }
     })
-      .then((resp) => resp.json())
-      .then((data) => {
-        if (data.ok) {
+      .then((resp) => {
+        if (resp.ok) {
           console.log('Successfully stored access token');
+        } else {
+          console.log(
+            'Received response other than OK when storing access token'
+          );
         }
       })
       .catch((err) => {
@@ -27,7 +30,6 @@ const Link = (props) => {
     receivedRedirectUri: null,
     onSuccess
   };
-  console.log(config);
   const { open, ready, error } = usePlaidLink(config);
   if (error) {
     console.log(error);

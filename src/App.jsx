@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import {
   createBrowserRouter,
   Route,
@@ -14,9 +14,6 @@ import HomePage from './pages/HomePage';
 import LandingPage from './pages/LandingPage';
 import RootLayout from './components/RootLayout';
 
-//Importing Link, just for testing purposes
-import Link from './components/link';
-
 // Dynamic rendering of components
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,8 +27,6 @@ const router = createBrowserRouter(
 );
 
 function App() {
-  // This bit is temporary -- testing Link
-
   return (
     <CredentialsProvider>
       <RouterProvider router={router} />

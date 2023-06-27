@@ -9,14 +9,12 @@ export default function LandingPage() {
   const generateToken = async () => {
     const resp = await fetch('api/create_link_token', { method: 'POST' });
     const data = await resp.json();
-    console.log(data);
     setLinkToken(data.link_token);
   };
 
   useEffect(() => {
     generateToken();
   }, []);
-  console.log(linkToken);
 
   useEffect(() => {
     console.log('Logging linkTokens obj from home page:');
