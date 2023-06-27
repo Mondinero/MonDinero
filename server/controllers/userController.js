@@ -11,7 +11,12 @@ const userController = {
       res.locals._id = data.rows[0]._id;
       const compare = await bcrypt.compare(password, data.rows[0].password);
       if (!compare) return next('incorrect username or password');
-      else return next();
+      else {
+        res
+          .cookie('user_id', data.rows[0]._id)
+          .cookie('username', data.rows[0].username);
+        return next();
+      }
     } catch (err) {
       return next(err);
     }
@@ -20,15 +25,21 @@ const userController = {
   createUser: async (req, res, next) => {
     const { firstName, lastName, username, password } = req.body;
     const hashPassword = await bcrypt.hash(password, 10);
-    const sqlQuery = 'INSERT INTO users (first_name, last_name, username, password) VALUES ($1, $2, $3, $4) RETURNING _id';
+    const sqlQuery =
+      'INSERT INTO users (first_name, last_name, username, password) VALUES ($1, $2, $3, $4) RETURNING _id';
     try {
-      const data = await db.query(sqlQuery, [firstName, lastName, username, hashPassword]);
-      res.locals._id = data.rows[0]._id
+      const data = await db.query(sqlQuery, [
+        firstName,
+        lastName,
+        username,
+        hashPassword
+      ]);
+      res.locals._id = data.rows[0]._id;
       return next();
     } catch (err) {
       return next(err);
     }
-  },
+  }
 };
 
 module.exports = userController;
