@@ -78,6 +78,7 @@ export default function LandingPage() {
         <p className={styles.motto}>TAKE BACK CONTROL OF YOUR MONEY</p>
         <p className={styles.logo}>GROWING SEEDS INTO MONEY TREES</p>
       </div>
+      <p>FOOTER</p>
       <button
         className={styles.darkModeButton}
         onClick={() => {
