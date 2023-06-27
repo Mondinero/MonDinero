@@ -2,6 +2,8 @@ const { Products, CountryCode } = require('plaid');
 const client = require('../server.js');
 const ErrorHandler = require('../errorHandler');
 const db = require('../models/dbModels');
+const fs = require('fs');
+const path = require('path');
 
 const apiController = {};
 const errorHandler = new ErrorHandler('apiController');
@@ -85,8 +87,28 @@ apiController.testTransactions = (req, res, next) => {
       access_token: 'access-sandbox-30e0347a-8520-4b1d-b061-d9e09ff04d59'
     })
     .then((resp) => {
+      fs.writeFileSync(
+        path.resolve(__dirname, '../test_data/test_transactions.json'),
+        JSON.stringify(resp.data)
+      );
       console.dir(resp.data);
       return next();
     });
 };
+
+apiController.testBalance = (req, res, next) => {
+  client
+    .accountsBalanceGet({
+      access_token: 'access-sandbox-30e0347a-8520-4b1d-b061-d9e09ff04d59'
+    })
+    .then((resp) => {
+      fs.writeFileSync(
+        path.resolve(__dirname, '../test_data/test_balances.json'),
+        JSON.stringify(resp.data)
+      );
+      console.dir(resp.data);
+      return next();
+    });
+};
+
 module.exports = apiController;
