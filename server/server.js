@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const cookieParser = require('cookie-parser');
+const userRoute = require('./routes/userRoute');
 
 const PORT = process.env.PORT || 3000;
 
@@ -16,7 +17,7 @@ if (process.env.NODE_ENV === 'production') {
 app.use('/assets', express.static(path.resolve(__dirname, '../src/assets')));
 
 // Routers to be updated
-// app.use('/server', myRouter);
+app.use('/server/user', userRoute);
 
 // 404 error handler
 app.use((req, res) => {
