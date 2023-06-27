@@ -5,7 +5,6 @@ import {
   createRoutesFromElements,
   RouterProvider
 } from 'react-router-dom';
-import CredentialsProvider from './CredentialsProvider';
 
 //Children components
 import LoginPage from './pages/LoginPage';
@@ -27,11 +26,7 @@ const router = createBrowserRouter(
 );
 
 function App() {
-  return (
-    <CredentialsProvider>
-      <RouterProvider router={router} />
-    </CredentialsProvider>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

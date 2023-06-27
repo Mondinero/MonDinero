@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { usePlaidLink } from 'react-plaid-link';
 
 const Link = (props) => {
