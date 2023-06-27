@@ -1,0 +1,173 @@
+body {
+  background-color: rgb(240, 240, 240);
+  color: rgb(14, 14, 14);
+  margin: 0;
+  transition: 2s;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: rgb(14, 14, 14);
+    color: white;
+  }
+}
+
+body[theme='dark'] {
+  background-color: rgb(14, 14, 14);
+  color: white;
+}
+
+body[theme='light'] {
+  background-color: rgb(240, 240, 240);
+  color: rgb(14, 14, 14);
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.bigDiv {
+  background-color: rgba(22, 75, 96, 0.5);
+  height: 18000px;
+  width: 100vw;
+}
+
+.welcome {
+  position: fixed;
+  top: 25vh;
+  z-index: 99;
+  left: calc(50vw - 650px);
+  font-size: 100px;
+  transition: 2s;
+  opacity: 0;
+}
+
+body[position='top'] {
+  .welcome {
+    opacity: 1;
+  }
+}
+
+.motto {
+  text-align: center;
+  position: fixed;
+  top: 25vh;
+  z-index: 99;
+  left: calc(50vw - 950px);
+  font-size: 100px;
+  transition: 1s;
+  opacity: 0;
+}
+
+body[position='middle'] {
+  .motto {
+    opacity: 1;
+  }
+}
+
+.logo {
+  text-align: center;
+  position: fixed;
+  top: 25vh;
+  z-index: 99;
+  left: calc(50vw - 900px);
+  font-size: 100px;
+  transition: 1s;
+  opacity: 0;
+}
+
+body[position='bottom'] {
+  .logo {
+    opacity: 1;
+  }
+}
+
+.upArrow {
+  position: relative;
+  font-size: 600px;
+  color: rgba(162, 255, 134, 0.5);
+  top: 0;
+  z-index: 1;
+  left: calc(50vw - 240px);
+}
+
+.turn1 {
+  rotate: 18deg;
+}
+
+.turn2 {
+  rotate: 36deg;
+}
+
+.turn3 {
+  rotate: 54deg;
+}
+
+.turn4 {
+  rotate: 72deg;
+}
+
+.turn5 {
+  rotate: 90deg;
+}
+
+.turn6 {
+  rotate: 108deg;
+}
+
+.turn7 {
+  rotate: 126deg;
+}
+
+.turn8 {
+  rotate: 144deg;
+}
+
+.turn9 {
+  rotate: 162deg;
+}
+
+.turn10 {
+  rotate: 180deg;
+  transition: 2s;
+}
+
+body[arrow='stop'] {
+  .turn10 {
+    position: fixed;
+    top: 10vh;
+    transform: scale(4) rotate(270deg);
+  }
+}
+
+.darkModeButton {
+  position: fixed;
+  top: 89vh;
+  left: calc(100vw - 120px);
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  z-index: 999;
+}
+
+.darkModeButton:hover {
+  cursor: pointer;
+}
+
+.moon {
+  font-size: 90px;
+  transition: 2s;
+}
+
+body[theme='dark'] {
+  .moon {
+    font-size: 90px;
+    color: white;
+  }
+}
+
+body[theme='light'] {
+  .moon {
+    font-size: 90px;
+    color: rgb(14, 14, 14);
+  }
+}

@@ -1,11 +1,11 @@
 const pkg = require('pg');
+require('dotenv').config();
 
-const PG_URI = 'mondinero-prod-instance-1.cejnzawepqxu.us-east-1.rds.amazonaws.com';
 const pool = new pkg.Pool({
-  host: PG_URI,
+  host: process.env.PG_URI,
   database: 'mondinerodb',
   user: 'mondineroadmin',
-  password: '123456789',
+  password: process.env.PG_PW,
   port: 5432,
   ssl: false,
 });
