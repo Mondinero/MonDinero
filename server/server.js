@@ -2,6 +2,8 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const cookieParser = require('cookie-parser');
+const userRoute = require('./routes/userRoute');
+
 require('dotenv').config();
 
 const plaid = require('plaid');
@@ -38,7 +40,7 @@ if (process.env.NODE_ENV === 'production') {
 app.use('/api/', apiRouter);
 
 // Routers to be updated
-// app.use('/server', myRouter);
+app.use('/server/user', userRoute);
 
 // 404 error handler
 app.use((req, res) => {
