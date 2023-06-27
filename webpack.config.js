@@ -3,13 +3,12 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-
 module.exports = {
   entry: ['./src/index.js'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
-    filename: 'bundle.js',
+    filename: 'bundle.js'
   },
   devtool: 'eval-source-map',
   mode: process.env.NODE_ENV,
@@ -22,20 +21,24 @@ module.exports = {
 
     static: {
       directory: path.resolve(__dirname, 'dist'),
-      publicPath: '/',
+      publicPath: '/'
     },
 
     headers: { 'Access-Control-Allow-Origin': '*' },
     proxy: {
       '/assets/**': {
         target: 'http://localhost:3000/',
-        secure: false,
+        secure: false
       },
       '/server/**': {
         target: 'http://localhost:3000/',
-        secure: false,
+        secure: false
       },
-    },
+      '/**': {
+        target: 'http://localhost:3000/',
+        secure: false
+      }
+    }
   },
   module: {
     rules: [
@@ -44,27 +47,30 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
-        },
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react']
+          }
+        }
       },
       {
         test: /.(css|scss)$/,
         exclude: /node_modules/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
-      },
-    ],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+      }
+    ]
   },
   plugins: [
     new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'src/index.html'),
-    }),
+      template: path.resolve(__dirname, 'src/index.html')
+    })
   ],
   performance: {
     hints: false,
     maxEntrypointSize: 512000,
-    maxAssetSize: 512000,
+    maxAssetSize: 512000
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
-  },
-}
+    extensions: ['.js', '.jsx']
+  }
+};
