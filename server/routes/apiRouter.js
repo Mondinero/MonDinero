@@ -18,9 +18,9 @@ apiRouter.post(
   }
 );
 
-// apiRouter.get('/accounts/balance/get', apiController.getBalances, (req, res) => {
-//   return res.status(200).json();
-// })
+apiRouter.post('/accounts/balance/get', apiController.getBalances, (req, res) => {
+  return res.status(200).json(res.locals.account);
+})
 
 // apiRouter.get('/transactions/sync', apiController.getTransactions, (req, res) => {
 //   return res.status(200).json();

@@ -61,9 +61,73 @@ apiController.exchangePublicToken = (req, res, next) => {
     });
 };
 
+apiController.getBalances = async (req, res, next) => {
+  console.log('INSIDE GET BALANCES');
 
+  // assuming access_token has been saved on the user making the request
+  const request = {
+    access_token: req.body.access_token,
+  };
 
-// apiController.getTransactions = (req, res, next) => {
+  try {
+    const response = await client.accountsBalanceGet(request);
+    const accounts = response.data.accounts;
+    for (let i = 0; i < accounts.length; i++) {
+      if (accounts[i].subtype === "checking") {
+        // save account id and account balance to DB
+        res.locals.account = { 
+          account_id: accounts[i].account_id, 
+          account_balance: accounts[i].balances.available
+        };
+        break;
+      }
+    }
+    return next();
+  } catch (err) {
+    return next(
+      errorHandler.makeError(
+        'getBalances',
+        `Encountered error while getting account balances: ${err}`,
+         500,
+        'Encountered error while getting account balances'
+      )
+    );
+  }
+};
+
+apiController.getTransactions = async (req, res, next) => {
+// Provide a cursor from your database if you've previously
+// received one for the Item. Leave null if this is your
+// first sync call for this Item. The first request will
+// return a cursor.
+let cursor = database.getLatestCursorOrNull(itemId);
+// New transaction updates since "cursor"
+let added = [];
+let modified = [];
+// Removed transaction ids
+let removed = [];
+let hasMore = true;
+// Iterate through each page of new transaction updates for item
+while (hasMore) {
+  const request = {
+    access_token: accessToken,
+    cursor: cursor,
+    options: {include_personal_finance_category: true},
+  };
+  const response = await client.transactionsSync(request);
+  const data = response.data;
+  // Add this page of results
+  added = added.concat(data.added);
+  modified = modified.concat(data.modified);
+  removed = removed.concat(data.removed);
+  hasMore = data.has_more;
+  // Update cursor to the next cursor
+  cursor = data.next_cursor;
+}
+// Persist cursor and updated data
+database.applyUpdates(itemId, added, modified, removed, cursor);
+
+}
 
 
 module.exports = apiController;
