@@ -26,6 +26,7 @@ const router = createBrowserRouter(
 );
 
 function App() {
+  // darkmode on all pages
   const dispatch = useDispatch();
   const colorTheme = useSelector((state) => state.appSlice.colorTheme);
   let currTheme;
