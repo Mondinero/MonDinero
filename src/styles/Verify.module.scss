@@ -1,5 +1,10 @@
 @import '_colors.scss';
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #11303c;
+}
 .container {
   display: flex;
   align-items: center;
@@ -8,11 +13,12 @@
 }
 
 .content {
+  background-color: white;
   display: flex;
   flex-direction: column;
   border: 1px solid black;
   align-items: center;
-  padding: 80px;
+  padding: 70px;
   border-radius: 5px;
 }
 
@@ -31,25 +37,28 @@
   height: 2.5rem;
   text-align: center;
   font-size: 1.2rem;
+  font-family: 'Roboto', 'sans-serif';
 
   border-radius: 5px;
 }
 
-.loginBtn {
+.primaryBtn {
   margin-top: 1rem;
   width: 65%;
   align-self: center;
   padding: 0.2rem;
   border-radius: 5px;
+  background-color: $fourthColor;
 }
 
-.signupBtn {
+.secondaryBtn {
   margin-top: 1rem;
   padding: 0.4rem;
   font-size: 1rem;
   text-align: center;
   border-radius: 5px;
   font-size: 0.9rem;
+  background-color: $fourthColor;
   
 }
 
@@ -57,13 +66,11 @@
   font-size: 2rem;
 }
 
+
 .logo {
-  text-align: center;
-  position: fixed;
-  top: 25vh;
-  z-index: 99;
-  left: calc(50vw - 900px);
   font-size: 100px;
-  transition: 1s;
-  opacity: 0;
+  color: $fourthColor;
+  // // top: 0;
+  // z-index: 1;
+  // // left: calc(50vw - 240px);
 }

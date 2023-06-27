@@ -9,7 +9,7 @@ import {
   setErrorMsg
 } from '../store/slices/appSlice'
 
-import styles from '../styles/Login.module.scss'
+import styles from '../styles/Verify.module.scss'
 function LoginPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -48,15 +48,15 @@ function LoginPage() {
     <React.Fragment>
       <div className={styles.container}>
         <div className={styles.content}>
-          <i className={`fa-solid fa-arrow-up ${styles.upArrow} ${styles.logo}`}></i>
+          <i className={`fa-solid fa-arrow-up ${styles.logo} `}></i>
           <p className={styles.loginText}>Login</p>
           <form action="" className={styles.form}>
             <input type="text" placeholder="username" className={styles.input} />
             <input type="text" placeholder="password" className={styles.input} />
-            <button type="submit" className={styles.loginBtn} onClick={handleLogin}>Login</button>
+            <button type="submit" className={styles.primaryBtn} onClick={handleLogin}>Login</button>
           </form>
           
-          <button className={styles.signupBtn} onClick={() => {
+          <button className={styles.secondaryBtn} onClick={() => {
             navigate('/signupPage')
           }}>
             Not a member?

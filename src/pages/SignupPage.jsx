@@ -9,6 +9,8 @@ import {
   setErrorMsg
 } from '../store/slices/appSlice'
 
+import styles from '../styles/Verify.module.scss'
+
 function SignupPage () {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -51,25 +53,26 @@ function SignupPage () {
 
   return (
     <React.Fragment>
-       <div>
-          <img src="" alt="logo" />
-        </div>
-
-        <p>Create Account</p>
-      <div>
+      <div className={styles.container}>
+        <div className={styles.content}>
+        <i className={`fa-solid fa-arrow-up ${styles.logo} `}></i>
+        <p className={styles.loginText}>Create Account</p>
+      
         <form action="">
-          <input type="text" placeholder="First name" />
-          <input type="text" placeholder="username"/>
-          <input type="password" placeholder="password" />
-          <button type="submit" onClick={() => {
+          <input type="text" placeholder="First name" className={styles.input} />
+          <input type="text" placeholder="username" className={styles.input}/>
+          <input type="password" placeholder="password" className={styles.input} />
+          <button type="submit" className={styles.primaryBtn} onClick={() => {
             handleSignup()
           }}>Sign Up</button>
         </form>
 
-        <button onClick={() => {
+        <button className={styles.secondaryBtn} onClick={() => {
           navigate('/loginPage');
         }}>
           Already have an account?</button>
+          </div>
+          
       </div>
     </React.Fragment>
   )
