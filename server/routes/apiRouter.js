@@ -27,4 +27,8 @@ apiRouter.get(
   }
 );
 
+apiRouter.get('/testBalances', apiController.testBalance, (req, res) => {
+  return res.sendStatus(200);
+});
+
 module.exports = apiRouter;
