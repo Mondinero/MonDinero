@@ -4,12 +4,15 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
+  mode: 'development',
   entry: ['./src/index.js'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
     filename: 'bundle.js'
   },
+
+  target: 'web',
   devtool: 'eval-source-map',
   mode: process.env.NODE_ENV,
 
@@ -43,21 +46,46 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /.(js|jsx)$/,
-        exclude: /node_modules/,
+        test: /\.jsx?/,
+        exclude: /(node_modules)/,
         use: {
           loader: 'babel-loader',
           options: {
+<<<<<<< HEAD
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+          },
+        },
+=======
             presets: ['@babel/preset-env', '@babel/preset-react']
           }
         }
+>>>>>>> 9f42742e0821f103166114744b462ae1e9f7b310
       },
       {
-        test: /.(css|scss)$/,
+        test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
+        use: ['ts-loader'],
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        exclude: /node_modules/,
+<<<<<<< HEAD
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ],
+      },
+    ],
+=======
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
       }
     ]
+>>>>>>> 9f42742e0821f103166114744b462ae1e9f7b310
   },
   plugins: [
     new MiniCssExtractPlugin(),
@@ -71,6 +99,12 @@ module.exports = {
     maxAssetSize: 512000
   },
   resolve: {
+<<<<<<< HEAD
+    extensions: ['.js', '.jsx', '.json'],
+  },
+}
+=======
     extensions: ['.js', '.jsx']
   }
 };
+>>>>>>> 9f42742e0821f103166114744b462ae1e9f7b310
