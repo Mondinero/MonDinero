@@ -18,4 +18,13 @@ apiRouter.post(
   }
 );
 
+// apiRouter.get('/accounts/balance/get', apiController.getBalances, (req, res) => {
+//   return res.status(200).json();
+// })
+
+// apiRouter.get('/transactions/sync', apiController.getTransactions, (req, res) => {
+//   return res.status(200).json();
+// })
+
+
 module.exports = apiRouter;
