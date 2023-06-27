@@ -47,21 +47,24 @@ function LoginPage() {
   return (
     <React.Fragment>
       <div className={styles.container}>
-        <div>
-          <img src="" alt="logo" />
+        <div className={styles.content}>
+          <div>
+            <img src="" alt="logo" />
+          </div>
+          <p className={styles.loginText}>Login</p>
+          <form action="" className={styles.form}>
+            <input type="text" placeholder="username" className={styles.input} />
+            <input type="text" placeholder="password" className={styles.input} />
+            <button type="submit" className={styles.loginBtn} onClick={handleLogin}>Login</button>
+          </form>
+          
+          <button className={styles.signupBtn} onClick={() => {
+            navigate('/signupPage')
+          }}>
+            Not a member?
+          </button>
         </div>
-        <p>Login</p>
-        <form action="">
-          <input type="text" placeholder="username" />
-          <input type="text" placeholder="password" />
-          <button type="submit" onClick={handleLogin}>Login</button>
-        </form>
-        
-        <button onClick={() => {
-          navigate('/signupPage')
-        }}>
-          Not a member?
-        </button>
+     
 
 
       </div>
