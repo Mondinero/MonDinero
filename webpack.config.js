@@ -3,14 +3,13 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-
 module.exports = {
   mode: 'development',
   entry: ['./src/index.js'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
-    filename: 'bundle.js',
+    filename: 'bundle.js'
   },
 
   target: 'web',
@@ -25,20 +24,24 @@ module.exports = {
 
     static: {
       directory: path.resolve(__dirname, 'dist'),
-      publicPath: '/',
+      publicPath: '/'
     },
 
     headers: { 'Access-Control-Allow-Origin': '*' },
     proxy: {
       '/assets/**': {
         target: 'http://localhost:3000/',
-        secure: false,
+        secure: false
       },
       '/server/**': {
         target: 'http://localhost:3000/',
-        secure: false,
+        secure: false
       },
-    },
+      '/**': {
+        target: 'http://localhost:3000/',
+        secure: false
+      }
+    }
   },
   module: {
     rules: [
@@ -48,9 +51,15 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
+<<<<<<< HEAD
             presets: ['@babel/preset-env', '@babel/preset-react'],
           },
         },
+=======
+            presets: ['@babel/preset-env', '@babel/preset-react']
+          }
+        }
+>>>>>>> 9f42742e0821f103166114744b462ae1e9f7b310
       },
       {
         test: /\.(ts|tsx)$/,
@@ -60,6 +69,7 @@ module.exports = {
       {
         test: /\.s[ac]ss$/i,
         exclude: /node_modules/,
+<<<<<<< HEAD
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
       {
@@ -71,19 +81,30 @@ module.exports = {
         ],
       },
     ],
+=======
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+      }
+    ]
+>>>>>>> 9f42742e0821f103166114744b462ae1e9f7b310
   },
   plugins: [
     new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'src/index.html'),
-    }),
+      template: path.resolve(__dirname, 'src/index.html')
+    })
   ],
   performance: {
     hints: false,
     maxEntrypointSize: 512000,
-    maxAssetSize: 512000,
+    maxAssetSize: 512000
   },
   resolve: {
+<<<<<<< HEAD
     extensions: ['.js', '.jsx', '.json'],
   },
 }
+=======
+    extensions: ['.js', '.jsx']
+  }
+};
+>>>>>>> 9f42742e0821f103166114744b462ae1e9f7b310

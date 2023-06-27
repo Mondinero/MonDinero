@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useContext } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-
+import Link from './link.jsx';
 
 function RootLayout() {
   return (
@@ -11,5 +11,6 @@ function RootLayout() {
     
   )
 }
+
 
 export default RootLayout;
