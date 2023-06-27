@@ -28,16 +28,47 @@ body::-webkit-scrollbar {
 
 .bigDiv {
   background-color: rgba(22, 75, 96, 0.5);
-  height: 18000px;
+  height: 12000px;
   width: 100vw;
 }
 
+.dropdown {
+  padding: 40px;
+  padding-left: 100px;
+}
+
+.toggle::after {
+  content: none;
+}
+
+.menu {
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+}
+
+.menuLink:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+body[theme='dark'] {
+  .menuLink {
+    color: white;
+  }
+}
+
+body[theme='light'] {
+  .menuLink {
+    color: rgb(14, 14, 14);
+  }
+}
+
 .welcome {
+  text-align: center;
   position: fixed;
-  top: 25vh;
+  top: 28vh;
   z-index: 99;
-  left: calc(50vw - 650px);
-  font-size: 100px;
+  width: 100vw;
+  font-size: clamp(36px, 4vw, 100px);
   transition: 2s;
   opacity: 0;
 }
@@ -51,10 +82,10 @@ body[position='top'] {
 .motto {
   text-align: center;
   position: fixed;
-  top: 25vh;
+  top: 28vh;
   z-index: 99;
-  left: calc(50vw - 950px);
-  font-size: 100px;
+  width: 100vw;
+  font-size: clamp(36px, 4vw, 100px);
   transition: 1s;
   opacity: 0;
 }
@@ -68,10 +99,10 @@ body[position='middle'] {
 .logo {
   text-align: center;
   position: fixed;
-  top: 25vh;
+  top: 28vh;
   z-index: 99;
-  left: calc(50vw - 900px);
-  font-size: 100px;
+  width: 100vw;
+  font-size: clamp(36px, 3vw, 100px);
   transition: 1s;
   opacity: 0;
 }
@@ -82,13 +113,59 @@ body[position='bottom'] {
   }
 }
 
+.join {
+  text-align: center;
+  position: fixed;
+  top: 28vh;
+  z-index: 99;
+  width: 100vw;
+  padding-left: 25vw;
+  padding-right: 25vw;
+  font-size: clamp(24px, 3vw, 70px);
+  transition: 1s;
+  opacity: 0;
+}
+
+body[position='stop'] {
+  .join {
+    opacity: 1;
+  }
+}
+
+.joinButton {
+  text-align: center;
+  position: fixed;
+  top: 55vh;
+  z-index: 99;
+  width: 8vw;
+  margin-left: 46vw;
+  margin-left: 46vw;
+  font-size: clamp(16px, 1.5vw, 60px);
+  transition: 1s;
+  opacity: 0;
+  text-decoration: none;
+  color: inherit;
+  border: solid;
+  border-radius: 20px;
+}
+
+.joinButton:hover {
+  background-color: rgba(126, 126, 126, 0.5);
+}
+
+body[position='stop'] {
+  .joinButton {
+    opacity: 1;
+  }
+}
+
 .upArrow {
   position: relative;
   font-size: 600px;
   color: rgba(162, 255, 134, 0.5);
   top: 0;
   z-index: 1;
-  left: calc(50vw - 240px);
+  left: calc(50vw - 220px);
 }
 
 .turn1 {
@@ -140,9 +217,15 @@ body[arrow='stop'] {
   }
 }
 
+body[zoom='zoom'] {
+  .turn10 {
+    transform: scale(50) rotate(270deg);
+  }
+}
+
 .darkModeButton {
   position: fixed;
-  top: 89vh;
+  top: calc(100vh - 120px);
   left: calc(100vw - 120px);
   background-color: rgba(255, 255, 255, 0);
   border: none;
@@ -170,4 +253,25 @@ body[theme='light'] {
     font-size: 90px;
     color: rgb(14, 14, 14);
   }
+}
+
+.footer {
+  position: relative;
+  font-size: 14px;
+  background-color: rgba(79, 192, 208, 0.5);
+  z-index: 998;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+.bottomLinks {
+  transition: 0.5s;
+  text-decoration: none;
+  color: inherit;
+}
+
+.bottomLinks:hover {
+  cursor: pointer;
+  color: rgba(27, 107, 147, 0.5);
 }
