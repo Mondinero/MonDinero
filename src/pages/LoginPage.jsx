@@ -48,9 +48,7 @@ function LoginPage() {
     <React.Fragment>
       <div className={styles.container}>
         <div className={styles.content}>
-          <div>
-            <img src="" alt="logo" />
-          </div>
+          <i className={`fa-solid fa-arrow-up ${styles.upArrow} ${styles.logo}`}></i>
           <p className={styles.loginText}>Login</p>
           <form action="" className={styles.form}>
             <input type="text" placeholder="username" className={styles.input} />

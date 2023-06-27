@@ -56,3 +56,14 @@
 .loginText {
   font-size: 2rem;
 }
+
+.logo {
+  text-align: center;
+  position: fixed;
+  top: 25vh;
+  z-index: 99;
+  left: calc(50vw - 900px);
+  font-size: 100px;
+  transition: 1s;
+  opacity: 0;
+}
