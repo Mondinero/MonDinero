@@ -1,7 +1,7 @@
-const { LinkTokenCreateRequest, Products, CountryCode } = require('plaid');
-const client = require('./server');
-const ErrorHandler = require('./errorHandler');
-const db = require('./models/dbModels');
+const { Products, CountryCode } = require('plaid');
+const client = require('../server.js');
+const ErrorHandler = require('../errorHandler');
+const db = require('../models/dbModels');
 
 const apiController = {};
 const errorHandler = new ErrorHandler('apiController');
@@ -23,6 +23,7 @@ apiController.createLinkToken = (req, res, next) => {
     .linkTokenCreate(request)
     .then((resp) => {
       res.locals.tokenResponse = resp.data;
+      console.log(resp.data);
       return next();
     })
     .catch((err) => {

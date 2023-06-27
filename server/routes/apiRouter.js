@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const apiController = require('./apiController');
+const apiController = require('../controllers/apiController');
 const apiRouter = Router();
 
 apiRouter.post(
