@@ -1,0 +1,31 @@
+.darkModeButton {
+  position: fixed;
+  top: calc(100vh - 120px);
+  left: calc(100vw - 120px);
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  z-index: 999;
+}
+
+.darkModeButton:hover {
+  cursor: pointer;
+}
+
+.moon {
+  font-size: 90px;
+  transition: 2s;
+}
+
+body[theme='dark'] {
+  .moon {
+    font-size: 90px;
+    color: white;
+  }
+}
+
+body[theme='light'] {
+  .moon {
+    font-size: 90px;
+    color: rgb(14, 14, 14);
+  }
+}

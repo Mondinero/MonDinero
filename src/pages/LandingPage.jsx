@@ -31,23 +31,6 @@ export default function LandingPage() {
 
   const dispatch = useDispatch();
   const colorTheme = useSelector((state) => state.appSlice.colorTheme);
-  let currTheme;
-  let selectedDay;
-  let selectedNight;
-
-  if (window.matchMedia('(prefers-color-scheme: dark)').matches && colorTheme === null) {
-    dispatch(setColorTheme('dark'));
-  }
-
-  document.querySelector('body').setAttribute('theme', colorTheme);
-
-  if (colorTheme === 'dark') {
-    currTheme = <i className='fa-solid fa-moon'></i>;
-    selectedNight = <i className='fa-solid fa-check'></i>;
-  } else {
-    currTheme = <i className='fa-solid fa-sun'></i>;
-    selectedDay = <i className='fa-solid fa-check'></i>;
-  }
 
   return (
     <>
@@ -66,6 +49,9 @@ export default function LandingPage() {
             </Dropdown.Item>
             <Dropdown.Item className={styles.menuLink} href='/aboutPage'>
               About
+            </Dropdown.Item>
+            <Dropdown.Item className={styles.menuLink} href='/graphs'>
+              Demo
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
@@ -105,14 +91,7 @@ export default function LandingPage() {
           Sign up
         </Link>
       </div>
-      <button
-        className={styles.darkModeButton}
-        onClick={() => {
-          if (colorTheme === 'dark') dispatch(setColorTheme('light'));
-          else dispatch(setColorTheme('dark'));
-        }}>
-        <i className={`fa-solid fa-moon ${styles.moon}`}></i>
-      </button>
+
       <div className={styles.footer}>
         © 2023 by{' '}
         <a className={styles.bottomLinks} href='https://github.com/sjk06'>
