@@ -6,8 +6,6 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { Link } from 'react-router-dom';
 
 export default function LandingPage() {
-  document.querySelector('body').setAttribute('position', 'top');
-
   window.addEventListener(
     'scroll',
     () => {
