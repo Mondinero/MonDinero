@@ -20,16 +20,11 @@ import Link from './components/link';
 // Dynamic rendering of components
 const router = createBrowserRouter(
   createRoutesFromElements(
-<<<<<<< HEAD
-    <Route element={<RootLayout/>}>
-      <Route path='loginPage' element={<LoginPage />} />
-=======
     <Route element={<RootLayout />}>
       <Route path="/" element={<LandingPage />} />
       <Route path="loginPage" element={<LoginPage />} />
       <Route path="signupPage" element={<SignupPage />} />
       <Route path="homePage" element={<HomePage />} />
->>>>>>> 9f42742e0821f103166114744b462ae1e9f7b310
     </Route>
   )
 );
