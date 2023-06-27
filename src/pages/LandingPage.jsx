@@ -11,13 +11,13 @@ export default function LandingPage() {
       document.body.style.setProperty('--scroll', window.scrollY);
       let bodyScroll = document.querySelector('body').style.cssText.slice(10);
       bodyScroll = Number(bodyScroll.slice(0, bodyScroll.length - 1));
-      if (bodyScroll < 2000) document.querySelector('body').setAttribute('position', 'top');
-      else if (bodyScroll > 5000 && bodyScroll < 7000)
+      if (bodyScroll < 2400) document.querySelector('body').setAttribute('position', 'top');
+      else if (bodyScroll > 3900 && bodyScroll < 6300)
         document.querySelector('body').setAttribute('position', 'middle');
-      else if (bodyScroll > 9000) document.querySelector('body').setAttribute('position', 'bottom');
+      else if (bodyScroll > 7800) document.querySelector('body').setAttribute('position', 'bottom');
       else document.querySelector('body').setAttribute('position', '');
 
-      if (bodyScroll > 7000) document.querySelector('body').setAttribute('arrow', 'stop');
+      if (bodyScroll > 7600) document.querySelector('body').setAttribute('arrow', 'stop');
       else document.querySelector('body').setAttribute('arrow', '');
     },
     false
@@ -46,6 +46,8 @@ export default function LandingPage() {
   return (
     <>
       <div className={styles.bigDiv}>
+        <i className={`fa-solid fa-arrow-up ${styles.upArrow}`}></i>
+        <br />
         <i className={`fa-solid fa-arrow-up ${styles.upArrow}`}></i>
         <br />
         <i className={`fa-solid fa-arrow-up ${styles.upArrow}`}></i>
