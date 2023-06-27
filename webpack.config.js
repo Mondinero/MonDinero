@@ -51,15 +51,9 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-<<<<<<< HEAD
-            presets: ['@babel/preset-env', '@babel/preset-react'],
-          },
-        },
-=======
             presets: ['@babel/preset-env', '@babel/preset-react']
           }
         }
->>>>>>> 9f42742e0821f103166114744b462ae1e9f7b310
       },
       {
         test: /\.(ts|tsx)$/,
@@ -69,23 +63,9 @@ module.exports = {
       {
         test: /\.s[ac]ss$/i,
         exclude: /node_modules/,
-<<<<<<< HEAD
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
-      },
-      {
-        test: /\.(png|jpe?g|gif)$/i,
-        use: [
-          {
-            loader: 'file-loader',
-          },
-        ],
-      },
-    ],
-=======
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
       }
     ]
->>>>>>> 9f42742e0821f103166114744b462ae1e9f7b310
   },
   plugins: [
     new MiniCssExtractPlugin(),
@@ -99,12 +79,6 @@ module.exports = {
     maxAssetSize: 512000
   },
   resolve: {
-<<<<<<< HEAD
-    extensions: ['.js', '.jsx', '.json'],
-  },
-}
-=======
     extensions: ['.js', '.jsx']
   }
 };
->>>>>>> 9f42742e0821f103166114744b462ae1e9f7b310
