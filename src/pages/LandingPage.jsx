@@ -2,7 +2,8 @@ import React from 'react';
 import styles from './LandingPageStyles.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { setColorTheme } from '../store/slices/appSlice';
-import { Navbar } from 'react-bootstrap';
+import Dropdown from 'react-bootstrap/Dropdown';
+import { Link } from 'react-router-dom';
 
 export default function LandingPage() {
   window.addEventListener(
@@ -14,11 +15,16 @@ export default function LandingPage() {
       if (bodyScroll < 2400) document.querySelector('body').setAttribute('position', 'top');
       else if (bodyScroll > 3900 && bodyScroll < 6300)
         document.querySelector('body').setAttribute('position', 'middle');
-      else if (bodyScroll > 7800) document.querySelector('body').setAttribute('position', 'bottom');
+      else if (bodyScroll > 7800 && bodyScroll < 9500)
+        document.querySelector('body').setAttribute('position', 'bottom');
+      else if (bodyScroll > 10200) document.querySelector('body').setAttribute('position', 'stop');
       else document.querySelector('body').setAttribute('position', '');
 
       if (bodyScroll > 7600) document.querySelector('body').setAttribute('arrow', 'stop');
       else document.querySelector('body').setAttribute('arrow', '');
+
+      if (bodyScroll > 10000) document.querySelector('body').setAttribute('zoom', 'zoom');
+      else document.querySelector('body').setAttribute('zoom', '');
     },
     false
   );
@@ -46,6 +52,23 @@ export default function LandingPage() {
   return (
     <>
       <div className={styles.bigDiv}>
+        <Dropdown className={styles.dropdown}>
+          <Dropdown.Toggle className={styles.toggle} variant='success' id='dropdown-basic'>
+            <i className='fa-solid fa-bars'></i>
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu className={styles.menu}>
+            <Dropdown.Item className={styles.menuLink} href='/loginPage'>
+              Login
+            </Dropdown.Item>
+            <Dropdown.Item className={styles.menuLink} href='/signupPage'>
+              Sign up
+            </Dropdown.Item>
+            <Dropdown.Item className={styles.menuLink} href='/aboutPage'>
+              About
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
         <i className={`fa-solid fa-arrow-up ${styles.upArrow}`}></i>
         <br />
         <i className={`fa-solid fa-arrow-up ${styles.upArrow}`}></i>
@@ -77,8 +100,11 @@ export default function LandingPage() {
         <p className={styles.welcome}>WELCOME TO MONDINERO</p>
         <p className={styles.motto}>TAKE BACK CONTROL OF YOUR MONEY</p>
         <p className={styles.logo}>GROWING SEEDS INTO MONEY TREES</p>
+        <p className={styles.join}>Join the movement and take back control of your money</p>
+        <Link className={styles.joinButton} to='/loginPage'>
+          Sign up
+        </Link>
       </div>
-      <p>FOOTER</p>
       <button
         className={styles.darkModeButton}
         onClick={() => {
@@ -87,6 +113,28 @@ export default function LandingPage() {
         }}>
         <i className={`fa-solid fa-moon ${styles.moon}`}></i>
       </button>
+      <div className={styles.footer}>
+        © 2023 by{' '}
+        <a className={styles.bottomLinks} href='https://github.com/sjk06'>
+          Sooji
+        </a>
+        ,{' '}
+        <a className={styles.bottomLinks} href='https://github.com/kneazle714'>
+          Yueran
+        </a>
+        ,{' '}
+        <a className={styles.bottomLinks} href='https://github.com/kyleslugg'>
+          Kyle
+        </a>
+        ,{' '}
+        <a className={styles.bottomLinks} href='https://github.com/praisepelumi'>
+          Praise
+        </a>
+        , and{' '}
+        <a className={styles.bottomLinks} href='https://github.com/kfan1'>
+          Kevin
+        </a>
+      </div>
     </>
   );
 }

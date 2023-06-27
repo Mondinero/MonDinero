@@ -33,7 +33,7 @@
     "pg": "^8.11.1",
     "plaid": "^14.1.0",
     "react": "^18.2.0",
-    "react-bootstrap": "^2.7.4",
+    "react-bootstrap": "^2.8.0",
     "react-dom": "^18.2.0",
     "react-plaid-link": "^3.4.0",
     "react-redux": "^8.0.5",
