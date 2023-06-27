@@ -1,7 +1,7 @@
-const { LinkTokenCreateRequest, Products, CountryCode } = require('plaid');
-const client = require('./server');
-const ErrorHandler = require('./errorHandler');
-const db = require('./models/dbModels');
+const { Products, CountryCode } = require('plaid');
+const client = require('../server.js');
+const ErrorHandler = require('../errorHandler');
+const db = require('../models/dbModels');
 
 const apiController = {};
 const errorHandler = new ErrorHandler('apiController');
@@ -13,6 +13,7 @@ apiController.createLinkToken = (req, res, next) => {
       client_user_id: clientUserId
     },
     client_name: 'OurAppName',
+    //redirect_uri: 'https://redirectmeto.com/http://localhost:8080/',
     products: [Products.Auth],
     language: 'en',
     //redirect_uri: 'https://localhost:3000/',
@@ -23,6 +24,7 @@ apiController.createLinkToken = (req, res, next) => {
     .linkTokenCreate(request)
     .then((resp) => {
       res.locals.tokenResponse = resp.data;
+      console.log(resp.data);
       return next();
     })
     .catch((err) => {
@@ -77,4 +79,14 @@ apiController.exchangePublicToken = (req, res, next) => {
     });
 };
 
+apiController.testTransactions = (req, res, next) => {
+  client
+    .transactionsSync({
+      access_token: 'access-sandbox-30e0347a-8520-4b1d-b061-d9e09ff04d59'
+    })
+    .then((resp) => {
+      console.dir(resp.data);
+      return next();
+    });
+};
 module.exports = apiController;

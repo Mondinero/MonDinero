@@ -4,6 +4,8 @@ import { usePlaidLink } from 'react-plaid-link';
 const Link = (props) => {
   const { linkToken } = props;
   const onSuccess = (public_token, metadata) => {
+    console.log('Metadata:');
+    console.dir(metadata);
     fetch('/api/exchange_public_token', {
       method: 'POST',
       body: JSON.stringify({ public_token }),

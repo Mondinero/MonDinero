@@ -23,7 +23,7 @@ const client = new PlaidApi(configuration);
 
 module.exports = client;
 
-const apiRouter = require('./apiRouter');
+const apiRouter = require('./routes/apiRouter');
 
 const PORT = process.env.PORT || 3000;
 

@@ -1,5 +1,6 @@
 const { Router } = require('express');
-const apiController = require('./apiController');
+const apiController = require('../controllers/apiController');
+const userController = require('../controllers/userController');
 const apiRouter = Router();
 
 apiRouter.post(
@@ -15,6 +16,14 @@ apiRouter.post(
   apiController.exchangePublicToken,
   (req, res) => {
     res.status(200).json({ public_token_exchange: 'complete' });
+  }
+);
+
+apiRouter.get(
+  '/testTransactions',
+  apiController.testTransactions,
+  (req, res) => {
+    return res.sendStatus(200);
   }
 );
 
