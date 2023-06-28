@@ -1,15 +1,26 @@
-import React, { useContext } from 'react';
-import { Link, NavLink, Outlet } from 'react-router-dom';
-
+import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from '../styles/RootLayout.module.scss';
+import { useSelector } from 'react-redux';
 
 function RootLayout() {
+  const firstName = useSelector((state) => state.appSlice.firstName);
+  let login;
+
+  if (!firstName)
+    login = [
+      <Link className={styles.link} to='/loginPage'>
+        Login
+      </Link>,
+    ];
+  else login = [];
+
   return (
     <div className={styles.container}>
       <header className={styles.navHeader}>
         <nav>
           <ul className={styles.navBar}>
-            <Link className={styles.link} to='/'>
+            <Link className={styles.link} to='/homePage'>
               <i className={`fa-solid fa-arrow-up ${styles.logo}`}></i>
               Home
             </Link>
@@ -17,8 +28,9 @@ function RootLayout() {
               MonDinero
             </Link>
             <div>
-              <Link className={styles.link} to='/loginPage'>
-                Login
+              {login}
+              <Link className={styles.link} to='/graphs'>
+                Graphs
               </Link>
               <Link className={styles.link} to='/aboutPage'>
                 About

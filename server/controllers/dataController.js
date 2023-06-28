@@ -34,7 +34,7 @@ dataController.transactionsCategoryFine = (req, res, next) => {
   const c2sets = {};
   const c3sets = {};
 
-  const formatted = { name: 'TopLevel', children: {} };
+  const formatted = { name: 'Expenses', children: {} };
 
   for (const row of rawData) {
     const [c1, c2, c3] = row.category;
@@ -69,12 +69,12 @@ dataController.transactionsCategoryFine = (req, res, next) => {
             c3sets[c1][c2].add(c3);
             formatted.children[c1].children[c2].children[c3] = {
               name: c3,
-              children: []
+              children: [],
             };
           }
           formatted.children[c1].children[c2].children[c3].children.push({
             name,
-            value
+            value,
           });
         } else {
           formatted.children[c1].children[c2].children[tid] = { name, value };

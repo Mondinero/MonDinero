@@ -12,14 +12,14 @@ apiController.createLinkToken = (req, res, next) => {
   const clientUserId = req.cookies.user_id;
   const request = {
     user: {
-      client_user_id: clientUserId
+      client_user_id: clientUserId,
     },
-    client_name: 'OurAppName',
+    client_name: 'MonDinero',
     //redirect_uri: 'https://redirectmeto.com/http://localhost:8080/',
     products: [Products.Auth],
     language: 'en',
     //redirect_uri: 'https://localhost:3000/',
-    country_codes: [CountryCode.Us]
+    country_codes: [CountryCode.Us],
   };
 
   client
@@ -31,11 +31,7 @@ apiController.createLinkToken = (req, res, next) => {
     })
     .catch((err) => {
       return next(
-        errorHandler.makeError(
-          'createLinkToken',
-          `Encountered error while creating link token: ${err}`,
-          500
-        )
+        errorHandler.makeError('createLinkToken', `Encountered error while creating link token: ${err}`, 500)
       );
     });
 };
@@ -44,14 +40,13 @@ apiController.exchangePublicToken = (req, res, next) => {
   const { public_token } = req.body;
   client
     .itemPublicTokenExchange({
-      public_token: public_token
+      public_token: public_token,
     })
     .then((resp) => {
       const { access_token, item_id, request_id } = resp.data;
       const { user_id } = req.cookies;
       const params = [item_id, user_id, access_token, request_id];
-      const query =
-        'INSERT INTO item_access (item_id, user_id, access_token, request_id) VALUES ($1, $2, $3, $4)';
+      const query = 'INSERT INTO item_access (item_id, user_id, access_token, request_id) VALUES ($1, $2, $3, $4)';
 
       db.query(query, params)
         .then((result) => {
@@ -113,7 +108,7 @@ apiController.getBalances = async (req, res, next) => {
         balanceArr.push({
           name: accounts[j].name,
           available: accounts[j].balances.available,
-          current: accounts[j].balances.current
+          current: accounts[j].balances.current,
         });
       }
     }
@@ -145,13 +140,13 @@ apiController.getTransactions = async (req, res, next) => {
   // const access_token = data.rows[0].access_token;
 
   const access_token = res.locals.accessTokenList[0];
-  console.log(access_token);
+  console.log('access_token: ', access_token);
 
   const request = {
     access_token: access_token,
     options: {
-      include_personal_finance_category: true
-    }
+      include_personal_finance_category: true,
+    },
   };
 
   // console.log('get transactions request is: ', request);
@@ -169,7 +164,7 @@ apiController.getTransactions = async (req, res, next) => {
         amount: transactions[i].amount,
         category: transactions[i].category,
         name: transactions[i].name,
-        transaction_id: transactions[i].transaction_id
+        transaction_id: transactions[i].transaction_id,
       });
     }
     res.locals.transactions = transactionArr;
@@ -190,19 +185,12 @@ apiController.getTransactions = async (req, res, next) => {
 apiController.testTransactions = (req, res, next) => {
   client
     .transactionsSync({
-      access_token: 'access-sandbox-30e0347a-8520-4b1d-b061-d9e09ff04d59'
+      access_token: 'access-sandbox-30e0347a-8520-4b1d-b061-d9e09ff04d59',
     })
     .then((resp) => {
-      fs.writeFileSync(
-        path.resolve(__dirname, '../test_data/test_transactions.json'),
-        JSON.stringify(resp.data.added)
-      );
+      fs.writeFileSync(path.resolve(__dirname, '../test_data/test_transactions.json'), JSON.stringify(resp.data.added));
       res.locals.rawTransactionsData = resp.data.added;
-      const testJson = fs
-        .readFileSync(
-          path.resolve(__dirname, '../test_data/graph_test_transactions.json')
-        )
-        .toString();
+      const testJson = fs.readFileSync(path.resolve(__dirname, '../test_data/graph_test_transactions.json')).toString();
       // console.log(testJson);
       res.locals.testTransactionsJson = JSON.parse(testJson);
       return next();
@@ -220,16 +208,14 @@ apiController.testBalance = (req, res, next) => {
   //       JSON.stringify(resp.data)
   //     );
 
-  const data = fs
-    .readFileSync(path.resolve(__dirname, '../test_data/test_balances.json'))
-    .toString();
+  const data = fs.readFileSync(path.resolve(__dirname, '../test_data/test_balances.json')).toString();
   const accounts = [];
   for (const el of JSON.parse(data).accounts) {
     console.log(el.name, el.balances.current, el.balances.available);
     accounts.push({
       name: el.name,
       current: el.balances.current,
-      available: el.balances.available
+      available: el.balances.available,
     });
   }
   res.locals.balances = accounts;

@@ -1,9 +1,8 @@
 import React from 'react';
 import styles from './LandingPageStyles.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { setColorTheme } from '../store/slices/appSlice';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function LandingPage() {
   window.addEventListener(
@@ -29,8 +28,27 @@ export default function LandingPage() {
     false
   );
 
-  const dispatch = useDispatch();
-  const colorTheme = useSelector((state) => state.appSlice.colorTheme);
+  const firstName = useSelector((state) => state.appSlice.firstName);
+
+  let login;
+
+  if (!firstName)
+    login = [
+      <>
+        <Link className={styles.menuLink} to='/loginPage'>
+          Login
+        </Link>
+        <Link className={styles.menuLink} to='/signupPage'>
+          Sign up
+        </Link>
+      </>,
+    ];
+  else
+    login = [
+      <Link className={styles.menuLink} to='/homePage'>
+        Home
+      </Link>,
+    ];
 
   return (
     <>
@@ -39,20 +57,17 @@ export default function LandingPage() {
           <Dropdown.Toggle className={styles.toggle} variant='success' id='dropdown-basic'>
             <i className='fa-solid fa-bars'></i>
           </Dropdown.Toggle>
-
           <Dropdown.Menu className={styles.menu}>
-            <Dropdown.Item className={styles.menuLink} href='/loginPage'>
-              Login
-            </Dropdown.Item>
-            <Dropdown.Item className={styles.menuLink} href='/signupPage'>
-              Sign up
-            </Dropdown.Item>
-            <Dropdown.Item className={styles.menuLink} href='/aboutPage'>
+            {login}
+            <Link className={styles.menuLink} to='/graphs'>
+              Graphs
+            </Link>
+            <Link className={styles.menuLink} to='/aboutPage'>
               About
-            </Dropdown.Item>
-            <Dropdown.Item className={styles.menuLink} href='/graphs'>
-              Demo
-            </Dropdown.Item>
+            </Link>
+            <Link className={styles.menuLink} to='/teamPage'>
+              Team
+            </Link>
           </Dropdown.Menu>
         </Dropdown>
         <i className={`fa-solid fa-arrow-up ${styles.upArrow}`}></i>
