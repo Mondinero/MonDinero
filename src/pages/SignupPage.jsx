@@ -17,26 +17,29 @@ function SignupPage () {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-
     try {
       const firstNameInput = e.currentTarget.elements[0];
       const lastNameInput = e.currentTarget.elements[1];
       const usernameInput = e.currentTarget.elements[2];
-      const passwordInput = ee.currentTarget.elements[3];
+      const passwordInput = e.currentTarget.elements[3];
   
       const firstName = firstNameInput.value;
       const lastName = lastNameInput.value;
       const username = usernameInput.value;
       const password = passwordInput.value;
 
-      const response = await fetch('http://localhost:8080/signup', {
+     
+
+      const response = await fetch('/server/user/signup', {
         method: 'POST',
-        'Content-Type': 'application/json',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        
         body: JSON.stringify({firstName,lastName,username,password })
         
       })
-      const data = await response.json();
-      if (response.status === 200) {
+      if (response.ok) {
         dispatch(setFirstName(firstName));
         dispatch(setUserName(username));
         navigate('/homePage');
@@ -60,14 +63,12 @@ function SignupPage () {
           <i className={`fa-solid fa-arrow-up ${styles.logo} `}></i>
           <p className={styles.loginText}>Create Account</p>
         
-          <form action="" className={styles.form}>
+          <form action="" className={styles.form} onSubmit={(e) => handleSignup(e)}>
             <input type="text" placeholder="First name" className={styles.input} />
             <input type="text" placeholder="Last name" className={styles.input} />
             <input type="text" placeholder="username" className={styles.input}/>
             <input type="password" placeholder="password" className={styles.input} />
-            <button type="submit" className={styles.primaryBtn} onClick={() => {
-              handleSignup()
-            }}>Sign Up</button>
+            <button type="submit" className={styles.primaryBtn} >Sign Up</button>
           </form>
 
           <button className={styles.secondaryBtn} onClick={() => {

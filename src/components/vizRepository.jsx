@@ -20,9 +20,9 @@ export function TransactionsBar() {
     dispatch(setTransactionsGraphData(data));
   };
 
-  useEffect(() => {
-    getTransactionsData();
-  }, []);
+  // useEffect(() => {
+  //   getTransactionsData();
+  // }, []);
 
   return (
     <GenericBar

@@ -9,10 +9,12 @@ const userController = {
       const data = await db.query(sqlQuery, [username]);
       if (!data.rows[0]) return next('incorrect username or password');
       res.locals._id = data.rows[0]._id;
+      res.locals.firstName = data.rows[0].first_name;
+      res.locals.username = data.rows[0].username;
       const compare = await bcrypt.compare(password, data.rows[0].password);
       if (!compare) return next('incorrect username or password');
       else {
-        res.cookie('user_id', _id).cookie('username', username);
+        res.cookie('user_id', res.locals._id).cookie('username', username);
         return next();
       }
     } catch (err) {
@@ -33,6 +35,8 @@ const userController = {
         hashPassword
       ]);
       res.locals._id = data.rows[0]._id;
+      res.locals.firstName = data.rows[0].first_name;
+      res.locals.username = data.rows[0].username;
       return next();
     } catch (err) {
       return next(err);
