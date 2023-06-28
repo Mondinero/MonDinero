@@ -22,21 +22,21 @@ export const appSlice = createSlice({
 
   reducers: {
     setUserName: (state, action) => {
-      state.username = action.payload
+      state.username = action.payload;
     },
     setFirstName: (state, action) => {
-      state.firstName = action.payload
+      state.firstName = action.payload;
     },
     setErrorMsg: (state, action) => {
-      state.errorMessage = action.payload
+      state.errorMessage = action.payload;
     },
     setMonthlyIncome: (state, action) => {
-      state.monthlyIncome = action.payload
+      state.monthlyIncome = action.payload;
     },
     setExpenses: (state, action) => {
-      state.expenses = { ...state.expenses, ...action.payload}
+      state.expenses = { ...state.expenses, ...action.payload };
     },
-      setColorTheme: (state, action) => {
+    setColorTheme: (state, action) => {
       state.colorTheme = action.payload;
     },
     setTotalBudget: (state, action) => {
@@ -46,8 +46,6 @@ export const appSlice = createSlice({
       state.prevBudget = {...state.prevBudget, ...action.payload}
     }
   },
-
-
 });
 
 export const {
@@ -61,4 +59,3 @@ export const {
   setPrevBudget
 } = appSlice.actions;
 export default  appSlice.reducer;
-
