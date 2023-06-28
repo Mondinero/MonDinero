@@ -10,7 +10,7 @@ export function TransactionsBar() {
   const dispatch = useDispatch();
   const [categories, setCategories] = useState([]);
   const getTransactionsData = async () => {
-    const data = await fetch('/api/testTransactions').then((resp) =>
+    const data = await fetch('/api/data/transactionsBar').then((resp) =>
       resp.json()
     );
 
@@ -20,9 +20,9 @@ export function TransactionsBar() {
     dispatch(setTransactionsGraphData(data));
   };
 
-  // useEffect(() => {
-  //   getTransactionsData();
-  // }, []);
+  useEffect(() => {
+    getTransactionsData();
+  }, []);
 
   return (
     <GenericBar
