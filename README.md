@@ -2,11 +2,19 @@
 
 Welcome to MonDinero!
 
+<img src='assets/welcome.png'>
+
 ## Introduction
 
 MonDinero is a budgeting app that takes advantage of D3 to display your budget and expenses side by side in interactive and easy to read graphs.
 
+<img src='assets/home.png'>
+
 Rest easy knowing that your data is secure. We collect your transaction data with Plaid through their Open Authorization tokens so that every piece of data you provide us will be approved by you first. Your budget data will be stored and secured with Amazon's Relational Database Services for reliability and performance.
+
+<img src='assets/pieCharts.png'>
+
+<img src='assets/barGraph.png'>
 
 Join us and take back control of your money!
 
