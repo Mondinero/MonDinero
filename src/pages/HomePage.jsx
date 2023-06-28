@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Link from '../components/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLinkToken } from '../store/slices/credentialSlice';
+import { TransactionsBar } from '../components/vizRepository';
 
 function HomePage() {
   const dispatch = useDispatch();
@@ -22,7 +23,12 @@ function HomePage() {
     console.log(linkToken);
   }, [linkToken]);
 
-  return <Link linkToken={linkToken} />;
+  return (
+    <div>
+      <TransactionsBar />
+      <Link linkToken={linkToken} />
+    </div>
+  );
 }
 
 export default HomePage;

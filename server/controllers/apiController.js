@@ -91,7 +91,13 @@ apiController.testTransactions = (req, res, next) => {
         path.resolve(__dirname, '../test_data/test_transactions.json'),
         JSON.stringify(resp.data)
       );
-      console.dir(resp.data);
+      const testJson = fs
+        .readFileSync(
+          path.resolve(__dirname, '../test_data/graph_test_transactions.json')
+        )
+        .toString();
+      console.log(testJson);
+      res.locals.testTransactionsJson = JSON.parse(testJson);
       return next();
     });
 };
@@ -106,7 +112,7 @@ apiController.testBalance = (req, res, next) => {
         path.resolve(__dirname, '../test_data/test_balances.json'),
         JSON.stringify(resp.data)
       );
-      console.dir(resp.data);
+
       return next();
     });
 };
