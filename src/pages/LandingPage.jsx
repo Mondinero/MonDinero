@@ -29,9 +29,6 @@ export default function LandingPage() {
     false
   );
 
-  const dispatch = useDispatch();
-  const colorTheme = useSelector((state) => state.appSlice.colorTheme);
-
   return (
     <>
       <div className={styles.bigDiv}>
@@ -41,18 +38,18 @@ export default function LandingPage() {
           </Dropdown.Toggle>
 
           <Dropdown.Menu className={styles.menu}>
-            <Dropdown.Item className={styles.menuLink} href='/loginPage'>
+            <Link className={styles.menuLink} to='/loginPage'>
               Login
-            </Dropdown.Item>
-            <Dropdown.Item className={styles.menuLink} href='/signupPage'>
+            </Link>
+            <Link className={styles.menuLink} to='/signupPage'>
               Sign up
-            </Dropdown.Item>
-            <Dropdown.Item className={styles.menuLink} href='/aboutPage'>
+            </Link>
+            <Link className={styles.menuLink} to='/aboutPage'>
               About
-            </Dropdown.Item>
-            <Dropdown.Item className={styles.menuLink} href='/graphs'>
+            </Link>
+            <Link className={styles.menuLink} to='/graphs'>
               Demo
-            </Dropdown.Item>
+            </Link>
           </Dropdown.Menu>
         </Dropdown>
         <i className={`fa-solid fa-arrow-up ${styles.upArrow}`}></i>

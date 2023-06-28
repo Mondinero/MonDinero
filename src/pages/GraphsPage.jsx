@@ -65,15 +65,12 @@ export default function Graphs() {
 
   return (
     <>
-      <div id="accounts-info">
+      <div className={styles.linkNewAccount} id='accounts-info'>
         <Link />
       </div>
-      <div id="charts" className={styles.chartsContainer}>
-        <div className={styles.pieContainer} id="pie-container"></div>
-        <div
-          className={styles.transactionsBarContainer}
-          id="transactions-by-month-bar-chart"
-        >
+      <div id='charts' className={styles.chartsContainer}>
+        <div className={styles.pieContainer} id='pie-container'></div>
+        <div className={styles.transactionsBarContainer} id='transactions-by-month-bar-chart'>
           <TransactionsBar />
         </div>
       </div>
