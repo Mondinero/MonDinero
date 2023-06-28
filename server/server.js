@@ -41,7 +41,7 @@ if (process.env.NODE_ENV === 'production') {
 // Routers
 app.use('/api/', apiRouter);
 app.use('/server/user', userRouter);
-app.use('/budget/', budgetRouter);
+app.use('/server/budget', budgetRouter);
 
 // 404 error handler
 app.use((req, res) => {
@@ -55,6 +55,7 @@ app.use((err, req, res, next) => {
     status: 500,
     message: { err: 'An error occurred' },
   };
+  console.log(err)
   const errorObj = Object.assign({}, defaultErr, err);
   return res.status(errorObj.status).json(errorObj.message);
 });

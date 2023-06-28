@@ -6,7 +6,8 @@ import {
   setFirstName,
   setErrorMsg,
   setMonthlyIncome,
-  setExpenses
+  setExpenses,
+  setTotalBudget
 } from '../store/slices/appSlice';
 function HomePage() {
   const dispatch = useDispatch();
@@ -15,14 +16,21 @@ function HomePage() {
 
   const firstName = useSelector((state) => state.appSlice.firstName);
   const totalExpenses = useSelector((state) => state.appSlice.expenses);
+  const monthlyIncome = useSelector((state) => state.appSlice.monthlyIncome);
+  const totalBudget = useSelector((state) => state.appSlice.totalBudget);
+  
 
-  const allExpensesDiv = document.getElementById('allExpenses');
+  const income = [<span>{monthlyIncome}</span>];
+
+
+
+
   const expensesArr = [];
 
   for (let key in totalExpenses) {
     expensesArr.push(
       <div>
-        <span>{key}</span>
+        <span>{key.replaceAll('_', ' ').charAt(0).toUpperCase() + key.replaceAll('_', ' ').slice(1)}</span>
         <span>{totalExpenses[key]}</span>
       </div>
     );
@@ -32,11 +40,33 @@ function HomePage() {
     e.preventDefault();
     const val = document.getElementById('expense');
     //const value = e.value;
-    const desc = val.options[val.selectedIndex].text;
-
+    const desc = val.options[val.selectedIndex].text.toLowerCase().replaceAll(' ', '_');
     const amount = document.getElementById('amount').value;
-
     dispatch(setExpenses({ [desc]: amount }));
+  }
+
+  dispatch(setTotalBudget(Object.values(totalExpenses).reduce((acc, curr) => Number(acc)+Number(curr))));
+
+  function addIncome(e) {
+    e.preventDefault();
+    const val = document.getElementById('income').value;
+    dispatch(setMonthlyIncome(val));
+
+  }
+
+  async function  saveBudget(e) {
+    e.preventDefault();
+    const data = await fetch('server/budget/createBudget', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'Application/json'
+      },
+      body: JSON.stringify({
+        income: monthlyIncome,
+        totalExpenses
+      })
+    })
+
   }
 
   return (
@@ -54,11 +84,11 @@ function HomePage() {
 
         <div>
           <span>
-            Income <input type="number" min="1" step="any" />
+            Income <input type="number" id="income" min="1" step="any" />
           </span>
           <button
-            onClick={() => {
-              dispatch(setMonthlyIncome());
+            onClick={(e) => {
+              addIncome(e)
             }}
           >
             Add income
@@ -67,7 +97,7 @@ function HomePage() {
 
         <div>
           <span>Total Income</span>
-          <span>{useSelector((state) => state.appSlice.monthlyIncome)}</span>
+          {income}
         </div>
 
         <p>Enter Your Expenses</p>
@@ -75,10 +105,12 @@ function HomePage() {
         <div>
           {/* <label for="expense">Select an Expense:</label> */}
           <select name="expense" id="expense">
-            <option value="rent">Rent</option>
-            <option value="food and drink">Food and Drink</option>
+            <option value="rent_and_utilities">Rent and Utilities</option>
+            <option value="food_and_drink">Food and Drink</option>
             <option value="entertainment">Entertainment</option>
-            <option value="transportation">Transportation</option>
+            <option value="travel">Travel</option>
+            <option value="general_merchandise">General Merchandise</option>
+      
           </select>
 
           <input
@@ -100,7 +132,16 @@ function HomePage() {
 
         <div>{expensesArr}</div>
 
-        <button>Save budget</button>
+        
+        <div>
+          <span>Total Budget</span>
+          <span>{totalBudget}</span>
+        </div>
+        <button
+          onClick={(e) => {
+            saveBudget(e)
+          }}
+        >Save budget</button>
       </div>
     </React.Fragment>
   );

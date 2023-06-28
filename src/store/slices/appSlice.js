@@ -7,8 +7,17 @@ export const appSlice = createSlice({
     firstName: null,
     errorMessage: '',
     monthlyIncome: null,
-    expenses: {},
+    expenses: {
+      entertainment: 0,
+      food_and_drink: 0,
+      general_merchandise :0,
+      transportation: 0,
+      travel: 0,
+      rent_and_utilities:0
+    },
+    prevBudget: {},
     colorTheme: null,
+    totalBudget: 0
   },
 
   reducers: {
@@ -30,6 +39,12 @@ export const appSlice = createSlice({
       setColorTheme: (state, action) => {
       state.colorTheme = action.payload;
     },
+    setTotalBudget: (state, action) => {
+      state.totalBudget = Number(action.payload)
+    },
+    setPrevBudget: (state, action) => {
+      state.prevBudget = {...state.prevBudget, ...action.payload}
+    }
   },
 
 
@@ -42,6 +57,8 @@ export const {
   setMonthlyIncome,
   setExpenses,
   setColorTheme,
+  setTotalBudget,
+  setPrevBudget
 } = appSlice.actions;
 export default  appSlice.reducer;
 

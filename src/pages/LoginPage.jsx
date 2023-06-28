@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { setUserName, setFirstName, setErrorMsg } from '../store/slices/appSlice';
+import { setUserName, setFirstName, setErrorMsg, setPrevBudget } from '../store/slices/appSlice';
 
 import styles from '../styles/Verify.module.scss';
 function LoginPage() {
@@ -31,6 +31,11 @@ function LoginPage() {
       if (response.ok) {
         dispatch(setUserName(username));
         dispatch(setFirstName(data.firstName));
+        const budget = await fetch ('/server/checkBudget', {method: 'POST'});
+        const response = await budget.json();
+        dispatch()
+        
+
         navigate('/homePage')
       } else {
         dispatch(setErrorMsg('Invalid username or password'));

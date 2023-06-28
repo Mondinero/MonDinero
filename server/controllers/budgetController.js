@@ -2,7 +2,7 @@ const db = require('../models/dbModels');
 
 const budgetController = {
   checkBudget: async (req, res, next) => {
-    const { user_id } = req.body;
+    const { user_id } = req.cookies;
     const sqlQuery = 'SELECT * FROM budget WHERE user_id = $1';
     try {
       const data = await db.query(sqlQuery, [user_id]);
@@ -17,22 +17,23 @@ const budgetController = {
   },
 
   createBudget: async (req, res, next) => {
+    const {user_id} = req.cookies;
     const {
-      user_id,
-      income,
-      entertainment,
+      income
+    } = req.body;
+
+    const { entertainment,
       food_and_drink,
       general_merchandise,
       transportation,
       travel,
-      rent_and_utilities,
-    } = req.body;
+      rent_and_utilities} = req.body.totalExpenses;
 
     const sqlQuery =
       'INSERT INTO budget (user_id, income, entertainment, food_and_drink, general_merchandise, transportation, travel, rent_and_utilities) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
 
-      try {
-      db.query(sqlQuery, [
+    try {
+      await db.query(sqlQuery, [
         user_id,
         income,
         entertainment,
