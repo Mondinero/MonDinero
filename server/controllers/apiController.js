@@ -178,8 +178,9 @@ apiController.testTransactions = (req, res, next) => {
     .then((resp) => {
       fs.writeFileSync(
         path.resolve(__dirname, '../test_data/test_transactions.json'),
-        JSON.stringify(resp.data)
+        JSON.stringify(resp.data.added)
       );
+      res.locals.rawTransactionsData = resp.data.added;
       const testJson = fs
         .readFileSync(
           path.resolve(__dirname, '../test_data/graph_test_transactions.json')
