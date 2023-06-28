@@ -1,7 +1,22 @@
 .pieContainer {
-  width: 50vw;
+  padding-top: 120px;
+  padding-left: 80px;
+  width: 45vw;
+  min-width: 600px;
 }
 
 text {
-  color: inherit;
+  transition: 1s;
+}
+
+body[theme='dark'] {
+  text {
+    fill: white;
+  }
+}
+
+body[theme='light'] {
+  text {
+    fill: black;
+  }
 }
