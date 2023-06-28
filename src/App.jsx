@@ -15,12 +15,44 @@ import { useDispatch, useSelector } from 'react-redux';
 // Dynamic rendering of components
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route element={<RootLayout />}>
+    <Route>
       <Route path='/' element={<LandingPage />} />
-      <Route path='loginPage' element={<LoginPage />} />
-      <Route path='signupPage' element={<SignupPage />} />
-      <Route path='homePage' element={<HomePage />} />
-      <Route path='graphs' element={<Graphs />} />
+      <Route
+        path='loginPage'
+        element={
+          <>
+            <RootLayout />
+            <LoginPage />
+          </>
+        }
+      />
+      <Route
+        path='signupPage'
+        element={
+          <>
+            <RootLayout />
+            <SignupPage />
+          </>
+        }
+      />
+      <Route
+        path='homePage'
+        element={
+          <>
+            <RootLayout />
+            <HomePage />
+          </>
+        }
+      />
+      <Route
+        path='graphs'
+        element={
+          <>
+            <RootLayout />
+            <Graphs />
+          </>
+        }
+      />
     </Route>
   )
 );
