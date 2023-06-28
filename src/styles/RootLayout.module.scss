@@ -40,7 +40,7 @@ nav {
   flex: 1;
   justify-content: space-evenly;
   align-items: center;
-  background-color: $fourthColor;
+  background-color: rgba(162, 255, 134, 0.5);
 }
 
 .link {
@@ -67,6 +67,5 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: $fourthColor;
   margin-top: 1rem;
 }
