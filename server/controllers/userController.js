@@ -1,3 +1,4 @@
+const { has } = require('immutable');
 const db = require('../models/dbModels');
 const bcrypt = require('bcryptjs');
 
@@ -26,12 +27,7 @@ const userController = {
     const sqlQuery =
       'INSERT INTO users (first_name, last_name, username, password) VALUES ($1, $2, $3, $4) RETURNING _id';
     try {
-      const data = await db.query(sqlQuery, [
-        firstName,
-        lastName,
-        username,
-        hashPassword
-      ]);
+      const data = await db.query(sqlQuery, [firstName, lastName, username, hashPassword]);
       res.locals._id = data.rows[0]._id;
       return next();
     } catch (err) {
@@ -42,10 +38,7 @@ const userController = {
   getCurrentUserTokens: async (req, res, next) => {
     try {
       const { user_id, username } = req.cookies;
-      const accessQuery = await db.query(
-        'SELECT * FROM item_access WHERE user_id = $1',
-        [user_id]
-      );
+      const accessQuery = await db.query('SELECT * FROM item_access WHERE user_id = $1', [user_id]);
       const accessTokenList = {};
       for (const row of accessQuery.rows) {
         accessTokenList[row[item_id]] = row[access_token];
@@ -55,7 +48,7 @@ const userController = {
     } catch (err) {
       return next(err);
     }
-  }
+  },
 };
 
 module.exports = userController;
