@@ -65,3 +65,15 @@ body[theme='light'] {
     right: auto;
   }
 }
+.accountData {
+  display: flex;
+  background-color: rgba(252, 252, 252, 0.212);
+  text-align: center;
+  justify-content: space-around;
+}
+
+.account {
+  display: block;
+  width: fit-content;
+  padding: 15px;
+}

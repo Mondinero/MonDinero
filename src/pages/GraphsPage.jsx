@@ -4,6 +4,7 @@ import drawChart from '../components/drawPieChart';
 import { TransactionsBar } from '../components/vizRepository';
 import Link from '../components/link';
 import { useSelector } from 'react-redux';
+import AccountPane from '../components/accounts';
 
 export default function Graphs() {
   const expenses = useSelector((state) => state.appSlice.expenses);
@@ -35,6 +36,7 @@ export default function Graphs() {
       <div className={styles.transactionsBarContainer} id='transactions-by-month-bar-chart'>
         <TransactionsBar />
       </div>
+      <AccountPane />
     </>
   );
 }
