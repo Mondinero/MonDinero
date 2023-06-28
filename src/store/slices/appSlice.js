@@ -3,13 +3,15 @@ import { createSlice } from '@reduxjs/toolkit';
 export const appSlice = createSlice({
   name: 'appSlice',
   initialState: {
-    username: null
+    colorTheme: null,
   },
-
-  reducers: {},
-
-
+  reducers: {
+    setColorTheme: (state, action) => {
+      state.colorTheme = action.payload;
+    },
+  },
 });
 
-export const {} = appSlice.actions;
-export default  appSlice.reducer;
+export const { setColorTheme } = appSlice.actions;
+
+export default appSlice.reducer;

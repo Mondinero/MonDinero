@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const apiController = require('../controllers/apiController');
+const userController = require('../controllers/userController');
 const apiRouter = Router();
 
 apiRouter.post(
@@ -26,5 +27,16 @@ apiRouter.post('/transactions/get', apiController.getTransactions, (req, res) =>
   return res.status(200).json(res.locals.transactions);
 })
 
+apiRouter.get(
+  '/testTransactions',
+  apiController.testTransactions,
+  (req, res) => {
+    return res.sendStatus(200);
+  }
+);
+
+apiRouter.get('/testBalances', apiController.testBalance, (req, res) => {
+  return res.sendStatus(200);
+});
 
 module.exports = apiRouter;

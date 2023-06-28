@@ -33,3 +33,13 @@ CREATE TABLE budgets (
   CONSTRAINT "budgets_pk" PRIMARY KEY ("_id"),
   CONSTRAINT "budgets_users_fk" FOREIGN KEY ("user_id") REFERENCES users ("_id")
 )
+
+CREATE TABLE item_access (
+  _id serial NOT NULL,
+  item_id varchar NOT NULL,
+  user_id int NOT null,
+  access_token varchar NOT NULL,
+  request_id varchar NOT null,
+  PRIMARY KEY(item_id),
+  CONSTRAINT item_access_users_fk FOREIGN KEY(user_id) references users(_id)
+)
