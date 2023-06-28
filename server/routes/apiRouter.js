@@ -39,4 +39,6 @@ apiRouter.get('/testBalances', apiController.testBalance, (req, res) => {
   return res.sendStatus(200);
 });
 
+apiRouter.get('/data/pieChart');
+
 module.exports = apiRouter;

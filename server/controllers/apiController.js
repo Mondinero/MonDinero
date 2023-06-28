@@ -12,14 +12,14 @@ apiController.createLinkToken = (req, res, next) => {
   const clientUserId = req.cookies.user_id;
   const request = {
     user: {
-      client_user_id: clientUserId
+      client_user_id: clientUserId,
     },
     client_name: 'OurAppName',
     //redirect_uri: 'https://redirectmeto.com/http://localhost:8080/',
     products: [Products.Auth],
     language: 'en',
     //redirect_uri: 'https://localhost:3000/',
-    country_codes: [CountryCode.Us]
+    country_codes: [CountryCode.Us],
   };
 
   client
@@ -44,7 +44,7 @@ apiController.exchangePublicToken = (req, res, next) => {
   const { public_token } = req.body;
   client
     .itemPublicTokenExchange({
-      public_token: public_token
+      public_token: public_token,
     })
     .then((resp) => {
       const { access_token, item_id, request_id } = resp.data;
@@ -89,6 +89,7 @@ apiController.getBalances = async (req, res, next) => {
   const query = 'SELECT * FROM item_access WHERE user_id = $1';
   const data = await db.query(query, [user_id]);
   console.log('data.rows is: ', data.rows);
+
   const access_tokens = data.rows;
 
   try {
@@ -99,13 +100,13 @@ apiController.getBalances = async (req, res, next) => {
       console.log('request is: ', request);
       const response = await client.accountsBalanceGet(request);
       console.log('response.data is: ', response.data);
-      
+
       const accounts = response.data.accounts;
       for (let j = 0; j < accounts.length; j++) {
         if (accounts[j].subtype === 'checking') {
           balanceArr.push({
             bank: accounts[j].name,
-            balance: accounts[j].balances.available
+            balance: accounts[j].balances.available,
           });
         }
       }
@@ -113,18 +114,17 @@ apiController.getBalances = async (req, res, next) => {
     res.locals.balance = balanceArr;
     return next();
   } catch (err) {
-      return next(
-        errorHandler.makeError(
-          'getBalances',
-          `Encountered error while getting account balances: ${err}`,
-          500,
-          'Encountered error while getting account balances'
-        )
-      );
-    }
-  };
+    return next(
+      errorHandler.makeError(
+        'getBalances',
+        `Encountered error while getting account balances: ${err}`,
+        500,
+        'Encountered error while getting account balances'
+      )
+    );
+  }
+};
 
-  
 apiController.getTransactions = async (req, res, next) => {
   console.log('INSIDE GET TRANSACTIONS');
   const { user_id } = req.body;
@@ -142,7 +142,6 @@ apiController.getTransactions = async (req, res, next) => {
   };
 
   console.log('get transactions request is: ', request);
-
   try {
     const response = await client.transactionsSync(request);
     console.log('this is the response', response);
@@ -156,7 +155,7 @@ apiController.getTransactions = async (req, res, next) => {
         date: transactions[i].date,
         amount: transactions[i].amount,
         category: transactions[i].personal_finance_category.primary,
-      })
+      });
     }
     res.locals.transactions = transactionArr;
     return next();
@@ -170,12 +169,12 @@ apiController.getTransactions = async (req, res, next) => {
       )
     );
   }
-}
+};
 
 apiController.testTransactions = (req, res, next) => {
   client
     .transactionsSync({
-      access_token: 'access-sandbox-30e0347a-8520-4b1d-b061-d9e09ff04d59'
+      access_token: 'access-sandbox-30e0347a-8520-4b1d-b061-d9e09ff04d59',
     })
     .then((resp) => {
       fs.writeFileSync(
@@ -196,7 +195,7 @@ apiController.testTransactions = (req, res, next) => {
 apiController.testBalance = (req, res, next) => {
   client
     .accountsBalanceGet({
-      access_token: 'access-sandbox-30e0347a-8520-4b1d-b061-d9e09ff04d59'
+      access_token: 'access-sandbox-30e0347a-8520-4b1d-b061-d9e09ff04d59',
     })
     .then((resp) => {
       fs.writeFileSync(

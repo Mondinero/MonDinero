@@ -1,8 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setLinkToken } from '../store/slices/credentialSlice';
 import { usePlaidLink } from 'react-plaid-link';
 
-const Link = (props) => {
-  const { linkToken } = props;
+const Link = () => {
+  const linkToken = useSelector((state) => state.credentialSlice.linkToken);
+  const dispatch = useDispatch();
+
+  const generateToken = async () => {
+    const resp = await fetch('/api/create_link_token', { method: 'POST' });
+    const data = await resp.json();
+    dispatch(setLinkToken(data.link_token));
+  };
+
+  useEffect(() => {
+    generateToken();
+  }, []);
+
+  useEffect(() => {
+    console.log('Logging linkTokens obj from link component:');
+    console.log(linkToken);
+  }, [linkToken]);
+
   const onSuccess = (public_token, metadata) => {
     console.log('Metadata:');
     console.dir(metadata);

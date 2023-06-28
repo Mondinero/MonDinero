@@ -51,8 +51,8 @@ export default function GenericBar(props) {
   return (
     // <ResponsiveContainer>
     <BarChart
-      width={500}
-      height={300}
+      width={700}
+      height={700}
       data={data}
       margin={{
         top: 5,
