@@ -23,6 +23,11 @@ export const appSlice = createSlice({
     },
     setMonthlyIncome: (state, action) => {
       state.monthlyIncome = action.payload
+    },
+    setExpenses: (state, action) => {
+      for (let key in action) {
+        state.expenses[key] = action[key];
+      }
     }
   },
 
@@ -34,6 +39,7 @@ export const {
   setFirstName,
   setErrorMsg,
   setMonthlyIncome,
+  setExpenses,
 
 } = appSlice.actions;
 export default  appSlice.reducer;

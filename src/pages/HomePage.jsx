@@ -7,6 +7,7 @@ import {
   setFirstName,
   setErrorMsg,
   setMonthlyIncome,
+  setExpenses
 } from '../store/slices/appSlice'
 function HomePage() {
   const dispatch = useDispatch();
@@ -14,7 +15,20 @@ function HomePage() {
   const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
 
 
-  const firstName = useSelector((state) => state.appSlice.firstName)
+  const firstName = useSelector((state) => state.appSlice.firstName);
+
+  function addExpense() {
+    const e = document.getElementById('expense');
+    const value = e.value;
+    const desc = e.options[e.selectedIndex].text;
+
+    const amount = document.getElementById('amount').value;
+
+    dispatch(setExpenses({desc: amount}))
+    const exp = useSelector((state) => state.expenses)
+    console.log(exp)
+
+  }
 
   return (
     <React.Fragment>
@@ -47,16 +61,16 @@ function HomePage() {
         <p>Enter Your Expenses</p>
 
         <div>
-          <label for="expense">Select an Expense:</label>
+          {/* <label for="expense">Select an Expense:</label> */}
           <select name="expense" id="expense">
-            <option value="rent" selected>Rent</option>
+            <option value="rent" >Rent</option>
             <option value="food and drink">Food and Drink</option>
             <option value="entertainment">Entertainment</option>
             <option value="transportation">Transportation</option>
           </select>
           
-            <input type="number" placeholder="Amount"  min="1" step="any" />
-            <button type="submit">Add</button>
+            <input type="number" placeholder="Amount" id='amount'  min="1" step="any" />
+            <button onClick={addExpense} type="submit">Add</button>
         
         </div>
 

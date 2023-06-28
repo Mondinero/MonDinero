@@ -19,18 +19,20 @@ function SignupPage () {
     e.preventDefault();
 
     try {
-      const firstNameInput = e.currentTarget.elements[0]
-      const usernameInput = e.currentTarget.elements[1];
-      const passwordInput = ee.currentTarget.elements[2];
+      const firstNameInput = e.currentTarget.elements[0];
+      const lastNameInput = e.currentTarget.elements[1];
+      const usernameInput = e.currentTarget.elements[2];
+      const passwordInput = ee.currentTarget.elements[3];
   
       const firstName = firstNameInput.value;
+      const lastName = lastNameInput.value;
       const username = usernameInput.value;
       const password = passwordInput.value;
 
-      const response = await fetch('', {
+      const response = await fetch('http://localhost:8080/signup', {
         method: 'POST',
         'Content-Type': 'application/json',
-        body: JSON.stringify({firstName,username,password  })
+        body: JSON.stringify({firstName,lastName,username,password })
         
       })
       const data = await response.json();
@@ -60,6 +62,7 @@ function SignupPage () {
         
           <form action="" className={styles.form}>
             <input type="text" placeholder="First name" className={styles.input} />
+            <input type="text" placeholder="Last name" className={styles.input} />
             <input type="text" placeholder="username" className={styles.input}/>
             <input type="password" placeholder="password" className={styles.input} />
             <button type="submit" className={styles.primaryBtn} onClick={() => {

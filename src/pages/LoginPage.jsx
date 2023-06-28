@@ -24,7 +24,7 @@ function LoginPage() {
       const username = usernameInput.value;
       const password = passwordInput.value;
 
-      const response = await fetch('', {
+      const response = await fetch('http://localhost:8080/login', {
         method: 'POST',
         'Content-Type': 'application/json',
         body: {username, password}
