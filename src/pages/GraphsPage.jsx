@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import styles from './GraphPageStyles.module.scss';
 import drawChart from '../components/drawPieChart';
+import { TransactionsBar } from '../components/vizRepository';
+import Link from '../components/link';
 
 export default function Graphs() {
   const data = {
@@ -63,7 +65,18 @@ export default function Graphs() {
 
   return (
     <>
-      <div className={styles.pieContainer} id='pie-container'></div>
+      <div id="accounts-info">
+        <Link />
+      </div>
+      <div id="charts" className={styles.chartsContainer}>
+        <div className={styles.pieContainer} id="pie-container"></div>
+        <div
+          className={styles.transactionsBarContainer}
+          id="transactions-by-month-bar-chart"
+        >
+          <TransactionsBar />
+        </div>
+      </div>
     </>
   );
 }
