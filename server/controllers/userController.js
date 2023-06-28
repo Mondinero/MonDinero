@@ -50,7 +50,6 @@ const userController = {
       for (const row of accessQuery.rows) {
         accessTokenList[row[item_id]] = row[access_token];
       }
-
       res.locals.accessTokenList = accessTokenList;
       return next();
     } catch (err) {

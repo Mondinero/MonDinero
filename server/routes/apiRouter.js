@@ -19,7 +19,7 @@ apiRouter.post(
   }
 );
 
-apiRouter.post('/accounts/balance/get', apiController.getBalances, (req, res) => {
+apiRouter.post('/accounts/balance/get', userController.getCurrentUserTokens, apiController.getBalances, (req, res) => {
   return res.status(200).json(res.locals.balance);
 })
 

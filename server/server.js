@@ -24,6 +24,7 @@ const client = new PlaidApi(configuration);
 module.exports = client;
 
 const apiRouter = require('./routes/apiRouter');
+const budgetRouter = require('./routes/budgetRouter');
 
 const PORT = process.env.PORT || 3000;
 
@@ -40,6 +41,7 @@ if (process.env.NODE_ENV === 'production') {
 // Routers
 app.use('/api/', apiRouter);
 app.use('/server/user', userRouter);
+app.use('/budget/', budgetRouter);
 
 // 404 error handler
 app.use((req, res) => {

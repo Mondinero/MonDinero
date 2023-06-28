@@ -122,7 +122,7 @@ apiController.getTransactions = async (req, res, next) => {
   let year = date.getFullYear();
   const request = {
     access_token: accessToken,
-    start_date: `{year}-{month}-01`,
+    start_date: `{year}-01-01`,
     end_date: `{year}-{month}-{day}`,
     options: {
       include_personal_finance_category: true,
@@ -138,7 +138,7 @@ apiController.getTransactions = async (req, res, next) => {
     while (transactions.length < total_transactions) {
       const paginatedRequest = {
         access_token: accessToken,
-        start_date: `{year}-{month}-01`,
+        start_date: `{year}-01-01`,
         end_date: `{year}-{month}-{day}`,
         options: {
           offset: transactions.length,
