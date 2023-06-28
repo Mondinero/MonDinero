@@ -1,6 +1,8 @@
 const { Router } = require('express');
 const apiController = require('../controllers/apiController');
 const userController = require('../controllers/userController');
+const dataController = require('../controllers/dataController');
+
 const apiRouter = Router();
 
 apiRouter.post(
@@ -49,6 +51,22 @@ apiRouter.get('/testBalances', apiController.testBalance, (req, res) => {
   return res.sendStatus(200);
 });
 
-apiRouter.get('/data/pieChart');
+apiRouter.get(
+  '/data/pieChart',
+  apiController.testTransactions,
+  dataController.transactionsCategoryFine,
+  (req, res) => {
+    res.status(200).json(res.locals.finalFormatted);
+  }
+);
+
+apiRouter.get(
+  '/data/transactionsBar',
+  apiController.testTransactions,
+  dataController.transactionsTotalCategoryMonth,
+  (req, res) => {
+    res.status(200).json(res.locals.finalFormatted);
+  }
+);
 
 module.exports = apiRouter;
