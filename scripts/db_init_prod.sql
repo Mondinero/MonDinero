@@ -21,7 +21,21 @@ CREATE TABLE users (
   "username" varchar NOT NULL,
   "password" varchar NOT NULL,
   CONSTRAINT "users_pk" PRIMARY KEY ("_id")
-)
+);
+
+CREATE TABLE budget (
+  "_id" serial NOT NULL,
+  "user_id" int NOT null,
+  "income" varchar NOT NULL,
+  "entertainment" varchar NOT NULL,
+  "food_and_drink" varchar NOT NULL,
+  "general_merchandise" varchar NOT NULL,
+  "transportation" varchar NOT NULL,
+  "travel" varchar NOT NULL,
+  "rent_and_utilities" varchar NOT NULL,
+  CONSTRAINT "budget_pk" PRIMARY KEY ("_id"),
+  CONSTRAINT "budget_users_fk" FOREIGN KEY (user_id) REFERENCES users (_id)
+);
 
 CREATE TABLE item_access (
   _id serial NOT NULL,

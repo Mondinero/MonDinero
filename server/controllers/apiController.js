@@ -81,6 +81,93 @@ apiController.exchangePublicToken = (req, res, next) => {
     });
 };
 
+apiController.getBalances = async (req, res, next) => {
+  console.log('INSIDE GET BALANCES');
+
+  // assuming access_token has been saved on the user making the request
+  const { user_id } = req.body;
+
+  const query = 'SELECT * FROM item_access WHERE user_id = $1';
+  const data = await db.query(query, [user_id]);
+  console.log('data.rows is: ', data.rows);
+  const access_tokens = data.rows;
+
+  try {
+    const balanceArr = [];
+    for (let i = 0; i < access_tokens.length; i++) {
+      console.log('INSIDE OUTER FOR LOOP');
+      const request = { access_token: access_tokens[i].access_token };
+      const response = await client.accountsBalanceGet(request);
+      console.log('response.data is: ', response.data);
+      
+      const accounts = response.data.accounts;
+      for (let j = 0; j < accounts.length; j++) {
+        if (accounts[j].subtype === 'checking') {
+          balanceArr.push(accounts[j].balances.available);
+        }
+      }
+    }
+    res.locals.balance = balanceArr;
+    return next();
+  } catch (err) {
+      return next(
+        errorHandler.makeError(
+          'getBalances',
+          `Encountered error while getting account balances: ${err}`,
+          500,
+          'Encountered error while getting account balances'
+        )
+      );
+    }
+  };
+
+apiController.getTransactions = async (req, res, next) => {
+  const date = new Date();
+  let day = date.getDate();
+  let month = date.getMonth();
+  let year = date.getFullYear();
+  
+  const request = {
+    access_token: accessToken,
+    start_date: `{year}-01-01`,
+    end_date: `{year}-{month}-{day}`,
+    options: {
+      include_personal_finance_category: true,
+      // count: 100,
+    },
+  };
+  try {
+    const response = await client.transactionsGet(request);
+    let transactions = response.data.transactions;
+    const total_transactions = response.data.total_transactions;
+    // Manipulate the offset parameter to paginate
+    // transactions and retrieve all available data
+    while (transactions.length < total_transactions) {
+      const paginatedRequest = {
+        access_token: accessToken,
+        start_date: `{year}-01-01`,
+        end_date: `{year}-{month}-{day}`,
+        options: {
+          offset: transactions.length,
+          include_personal_finance_category: true,
+        },
+      };
+      const paginatedResponse = await client.transactionsGet(paginatedRequest);
+      transactions = transactions.concat(paginatedResponse.data.transactions);
+    }
+    return next();
+  } catch (err) {
+    return next(
+      errorHandler.makeError(
+        'getTransactions',
+        `Encountered error while getting account transactions: ${err}`,
+        500,
+        'Encountered error while getting account transactions'
+      )
+    );
+  }
+}
+
 apiController.testTransactions = (req, res, next) => {
   client
     .transactionsSync({
