@@ -1,6 +1,8 @@
 const { Router } = require('express');
 const apiController = require('../controllers/apiController');
 const userController = require('../controllers/userController');
+const dataController = require('../controllers/dataController');
+
 const apiRouter = Router();
 
 apiRouter.post(
@@ -19,23 +21,13 @@ apiRouter.post(
   }
 );
 
-apiRouter.post(
-  '/accounts/balance/get',
-  userController.getCurrentUserTokens,
-  apiController.getBalances,
-  (req, res) => {
-    return res.status(200).json(res.locals.balance);
-  }
-);
+apiRouter.post('/accounts/balance/get', apiController.getBalances, (req, res) => {
+  return res.status(200).json(res.locals.balance);
+})
 
-apiRouter.post(
-  '/transactions/get',
-  userController.getCurrentUserTokens,
-  apiController.getTransactions,
-  (req, res) => {
-    return res.status(200).json(res.locals.transactions);
-  }
-);
+apiRouter.post('/transactions/sync', apiController.getTransactions, (req, res) => {
+  return res.status(200).json(res.locals.transactions);
+})
 
 apiRouter.get(
   '/testTransactions',
@@ -49,6 +41,22 @@ apiRouter.get('/testBalances', apiController.testBalance, (req, res) => {
   return res.sendStatus(200);
 });
 
-apiRouter.get('/data/pieChart');
+apiRouter.get(
+  '/data/pieChart',
+  apiController.testTransactions,
+  dataController.transactionsCategoryFine,
+  (req, res) => {
+    res.status(200).json(res.locals.finalFormatted);
+  }
+);
+
+apiRouter.get(
+  '/data/transactionsBar',
+  apiController.testTransactions,
+  dataController.transactionsTotalCategoryMonth,
+  (req, res) => {
+    res.status(200).json(res.locals.finalFormatted);
+  }
+);
 
 module.exports = apiRouter;

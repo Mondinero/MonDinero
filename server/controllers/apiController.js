@@ -12,14 +12,14 @@ apiController.createLinkToken = (req, res, next) => {
   const clientUserId = req.cookies.user_id;
   const request = {
     user: {
-      client_user_id: clientUserId
+      client_user_id: clientUserId,
     },
     client_name: 'OurAppName',
     //redirect_uri: 'https://redirectmeto.com/http://localhost:8080/',
     products: [Products.Auth],
     language: 'en',
     //redirect_uri: 'https://localhost:3000/',
-    country_codes: [CountryCode.Us]
+    country_codes: [CountryCode.Us],
   };
 
   client
@@ -44,7 +44,7 @@ apiController.exchangePublicToken = (req, res, next) => {
   const { public_token } = req.body;
   client
     .itemPublicTokenExchange({
-      public_token: public_token
+      public_token: public_token,
     })
     .then((resp) => {
       const { access_token, item_id, request_id } = resp.data;
@@ -84,26 +84,30 @@ apiController.exchangePublicToken = (req, res, next) => {
 apiController.getBalances = async (req, res, next) => {
   console.log('INSIDE GET BALANCES');
 
-  // assuming access_token has been saved on the user making the request
-  //const { user_id } = req.body;
+  const { user_id } = req.body;
 
-  // const query = 'SELECT * FROM item_access WHERE user_id = $1';
-  // const data = await db.query(query, [user_id]);
-  // console.log('data.rows is: ', data.rows);
-  const access_tokens = res.locals.accessTokenList;
+  const query = 'SELECT * FROM item_access WHERE user_id = $1';
+  const data = await db.query(query, [user_id]);
+  console.log('data.rows is: ', data.rows);
+
+  const access_tokens = data.rows;
 
   try {
     const balanceArr = [];
     for (let i = 0; i < access_tokens.length; i++) {
       console.log('INSIDE OUTER FOR LOOP');
       const request = { access_token: access_tokens[i].access_token };
+      console.log('request is: ', request);
       const response = await client.accountsBalanceGet(request);
       console.log('response.data is: ', response.data);
 
       const accounts = response.data.accounts;
       for (let j = 0; j < accounts.length; j++) {
         if (accounts[j].subtype === 'checking') {
-          balanceArr.push(accounts[j].balances.available);
+          balanceArr.push({
+            bank: accounts[j].name,
+            balance: accounts[j].balances.available,
+          });
         }
       }
     }
@@ -122,41 +126,38 @@ apiController.getBalances = async (req, res, next) => {
 };
 
 apiController.getTransactions = async (req, res, next) => {
-  const date = new Date();
-  let day = date.getDate();
-  let month = date.getMonth();
-  let year = date.getFullYear();
+  console.log('INSIDE GET TRANSACTIONS');
+  const { user_id } = req.body;
 
-  const accessToken = res.locals.accessTokenList[0];
+  const query = 'SELECT * FROM item_access WHERE user_id = $1';
+  const data = await db.query(query, [user_id]);
+  console.log('data.rows is: ', data.rows);
+  const access_token = data.rows[0].access_token;
 
   const request = {
-    access_token: accessToken,
-    start_date: `{year}-01-01`,
-    end_date: `{year}-{month}-{day}`,
+    access_token: access_token,
     options: {
-      include_personal_finance_category: true
-      // count: 100,
-    }
+      include_personal_finance_category: true,
+    },
   };
+
+  console.log('get transactions request is: ', request);
   try {
-    const response = await client.transactionsGet(request);
-    let transactions = response.data.transactions;
-    const total_transactions = response.data.total_transactions;
-    // Manipulate the offset parameter to paginate
-    // transactions and retrieve all available data
-    while (transactions.length < total_transactions) {
-      const paginatedRequest = {
-        access_token: accessToken,
-        start_date: `{year}-01-01`,
-        end_date: `{year}-{month}-{day}`,
-        options: {
-          offset: transactions.length,
-          include_personal_finance_category: true
-        }
-      };
-      const paginatedResponse = await client.transactionsGet(paginatedRequest);
-      transactions = transactions.concat(paginatedResponse.data.transactions);
+    const response = await client.transactionsSync(request);
+    console.log('this is the response', response);
+    let transactions = response.data.added;
+    console.log('transactions are: ', transactions);
+    console.log('first transaction: ', transactions[0]);
+    const transactionArr = [];
+    for (let i = 0; i < transactions.length; i++) {
+      transactionArr.push({
+        account_id: transactions[i].account_id,
+        date: transactions[i].date,
+        amount: transactions[i].amount,
+        category: transactions[i].personal_finance_category.primary,
+      });
     }
+    res.locals.transactions = transactionArr;
     return next();
   } catch (err) {
     return next(
@@ -173,13 +174,14 @@ apiController.getTransactions = async (req, res, next) => {
 apiController.testTransactions = (req, res, next) => {
   client
     .transactionsSync({
-      access_token: 'access-sandbox-30e0347a-8520-4b1d-b061-d9e09ff04d59'
+      access_token: 'access-sandbox-30e0347a-8520-4b1d-b061-d9e09ff04d59',
     })
     .then((resp) => {
       fs.writeFileSync(
         path.resolve(__dirname, '../test_data/test_transactions.json'),
-        JSON.stringify(resp.data)
+        JSON.stringify(resp.data.added)
       );
+      res.locals.rawTransactionsData = resp.data.added;
       const testJson = fs
         .readFileSync(
           path.resolve(__dirname, '../test_data/graph_test_transactions.json')
@@ -194,7 +196,7 @@ apiController.testTransactions = (req, res, next) => {
 apiController.testBalance = (req, res, next) => {
   client
     .accountsBalanceGet({
-      access_token: 'access-sandbox-30e0347a-8520-4b1d-b061-d9e09ff04d59'
+      access_token: 'access-sandbox-30e0347a-8520-4b1d-b061-d9e09ff04d59',
     })
     .then((resp) => {
       fs.writeFileSync(
