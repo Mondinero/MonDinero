@@ -85,41 +85,49 @@ apiController.getBalances = async (req, res, next) => {
   console.log('INSIDE GET BALANCES');
 
   // assuming access_token has been saved on the user making the request
-  const { access_token } = req.body;
-  const request = {
-    access_token: access_token,
-  };
+  const { user_id } = req.body;
+
+  const query = 'SELECT * FROM item_access WHERE user_id = $1';
+  const data = await db.query(query, [user_id]);
+  console.log('data.rows is: ', data.rows);
+  const access_tokens = data.rows;
 
   try {
-    const response = await client.accountsBalanceGet(request);
-    const accounts = response.data.accounts;
-    for (let i = 0; i < accounts.length; i++) {
-      if (accounts[i].subtype === 'checking') {
-        res.locals.balance = {
-          account_id: accounts[i].account_id,
-          account_balance: accounts[i].balances.available,
-        };
-        break;
+    const balanceArr = [];
+    for (let i = 0; i < access_tokens.length; i++) {
+      console.log('INSIDE OUTER FOR LOOP');
+      const request = { access_token: access_tokens[i].access_token };
+ 
+      const response = await client.accountsBalanceGet(request);
+      console.log('response.data is: ', response.data);
+      const accounts = response.data.accounts;
+      for (let j = 0; j < accounts.length; j++) {
+      console.log('INSIDE INNER FOR LOOP');
+        if (accounts[j].subtype === 'checking') {
+          balanceArr.push(accounts[j].balances.available);
+        }
       }
     }
+    res.locals.balance = balanceArr;
     return next();
   } catch (err) {
-    return next(
-      errorHandler.makeError(
-        'getBalances',
-        `Encountered error while getting account balances: ${err}`,
-        500,
-        'Encountered error while getting account balances'
-      )
-    );
-  }
-};
+      return next(
+        errorHandler.makeError(
+          'getBalances',
+          `Encountered error while getting account balances: ${err}`,
+          500,
+          'Encountered error while getting account balances'
+        )
+      );
+    }
+  };
 
 apiController.getTransactions = async (req, res, next) => {
   const date = new Date();
   let day = date.getDate();
   let month = date.getMonth();
   let year = date.getFullYear();
+  
   const request = {
     access_token: accessToken,
     start_date: `{year}-01-01`,
