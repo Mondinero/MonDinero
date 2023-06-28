@@ -22,3 +22,14 @@ CREATE TABLE users (
   "password" varchar NOT NULL,
   CONSTRAINT "users_pk" PRIMARY KEY ("_id")
 )
+
+CREATE TABLE budgets (
+  "_id" serial NOT NULL,
+  "income" varchar NOT NULL,
+  "food" varchar NOT NULL,
+  "entertainment" varchar NOT NULL,
+  "transportation" varchar NOT NULL,
+  "travel" varchar NOT NULL,
+  CONSTRAINT "budgets_pk" PRIMARY KEY ("_id"),
+  CONSTRAINT "budgets_users_fk" FOREIGN KEY ("user_id") REFERENCES users ("_id")
+)
