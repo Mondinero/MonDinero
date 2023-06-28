@@ -31,11 +31,11 @@ function LoginPage() {
       if (response.ok) {
         dispatch(setUserName(username));
         dispatch(setFirstName(data.firstName));
-        const budget = await fetch ('/server/checkBudget', {method: 'POST'});
+        const budget = await fetch ('/server/budget/checkBudget', {method: 'POST'});
         const response = await budget.json();
-        dispatch()
-        
+        dispatch(setPrevBudget(response));
 
+        dispatch(set)
         navigate('/homePage')
       } else {
         dispatch(setErrorMsg('Invalid username or password'));

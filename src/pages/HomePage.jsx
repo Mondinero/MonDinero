@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from '../styles/Home.module.scss';
-
+import Table from '../components/Table';
 import {
   setFirstName,
   setErrorMsg,
@@ -72,35 +72,43 @@ function HomePage() {
   return (
     <React.Fragment>
       <div className={styles.container}>
+        <div class={styles.leftContent}>
         <div>
           <span>Welcome </span>
-          <span>{firstName}</span>
+          <span className={styles.name}>{firstName}</span>
         </div>
 
         <div>
-          <span>Set up your income and monthly budget for</span>
-          <span>{currentMonth}</span>
+          <span>Set up your income and monthly budget for the month of</span>
+          <span className={styles.month}>{currentMonth}</span>
         </div>
 
         <div>
-          <span>
-            Income <input type="number" id="income" min="1" step="any" />
-          </span>
+           <input type="number" placeholder="Income" id="income" min="1" step="any" />
+         
           <button
+            className={styles.addIncomeBtn}
             onClick={(e) => {
               addIncome(e)
             }}
           >
-            Add income
+            Add Income
           </button>
         </div>
 
         <div>
-          <span>Total Income</span>
-          {income}
+          <table>
+            <tr>
+              <td>Total Income:</td>
+              <td className={styles.totalIncome}>&#36;{income}</td>
+            </tr>
+          </table>
+          {/* <span>Total Income</span>
+          <span className={styles.box}>{income}</span> */}
+          
         </div>
 
-        <p>Enter Your Expenses</p>
+        <p>Select Your Expenses</p>
 
         <div>
           {/* <label for="expense">Select an Expense:</label> */}
@@ -108,12 +116,14 @@ function HomePage() {
             <option value="rent_and_utilities">Rent and Utilities</option>
             <option value="food_and_drink">Food and Drink</option>
             <option value="entertainment">Entertainment</option>
+            <option value="transportation">Transportation</option>
             <option value="travel">Travel</option>
             <option value="general_merchandise">General Merchandise</option>
       
           </select>
 
           <input
+          className={styles.numAmount}
             type="number"
             placeholder="Amount"
             id="amount"
@@ -121,28 +131,41 @@ function HomePage() {
             step="any"
           />
           <button
+          className={styles.addExpenseBtn}
             onClick={(e) => {
               addExpense(e);
             }}
             type="submit"
           >
-            Add
+            Add Expense
           </button>
         </div>
-
-        <div>{expensesArr}</div>
-
         
-        <div>
-          <span>Total Budget</span>
-          <span>{totalBudget}</span>
         </div>
-        <button
-          onClick={(e) => {
-            saveBudget(e)
-          }}
-        >Save budget</button>
+        
+        <div className={styles.rightContent}>
+          <div>
+            <Table/>
+          </div>
+          {/* <div>{expensesArr}</div> */}
+
+          
+          {/* <div>
+            <span>Total Budget</span>
+            <span className={styles.box}>{totalBudget}</span>
+          </div> */}
+          <button
+          className={styles.saveBudgetBtn}
+            onClick={(e) => {
+              saveBudget(e)
+            }}
+          >Save budget</button>
+        </div>
+      
+        
       </div>
+
+      
     </React.Fragment>
   );
 }
