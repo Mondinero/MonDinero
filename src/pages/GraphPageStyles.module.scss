@@ -20,3 +20,14 @@ body[theme='light'] {
     fill: black;
   }
 }
+
+.accountData {
+  display: flex;
+  background-color: rgba(252, 252, 252, 0.212);
+}
+
+.account {
+  display: block;
+  width: fit-content;
+  padding: 15px;
+}

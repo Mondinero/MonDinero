@@ -3,9 +3,14 @@ const dataController = {};
 dataController.transactionsTotalCategoryMonth = (req, res, next) => {
   const rawData = res.locals.rawTransactionsData;
   const months = {};
+
   for (const row of rawData) {
-    if (Number(row.amount) < 0) {
-      continue;
+    let value = row.amount;
+    //TODO: FIX THIS FOR PRODUCTION:
+    //Currently, for display testing purposes, we're treating all negative charges as positive charges (i.e., income as expenses)
+    //Future production versions should distinguish between income and expenses.
+    if (value < 0) {
+      value = Math.abs(Number(value));
     }
     const month = String(row.date).substring(0, 7);
     const mainCat = row.category[0];
@@ -13,9 +18,9 @@ dataController.transactionsTotalCategoryMonth = (req, res, next) => {
       months[month] = { month: month };
     }
     if (months[month][mainCat]) {
-      months[month][mainCat] += Number(row.amount);
+      months[month][mainCat] += value;
     } else {
-      months[month][mainCat] = Number(row.amount);
+      months[month][mainCat] = value;
     }
   }
 
@@ -33,12 +38,15 @@ dataController.transactionsCategoryFine = (req, res, next) => {
 
   for (const row of rawData) {
     const [c1, c2, c3] = row.category;
-    const value = row.amount;
+    let value = row.amount;
     const name = row.name;
     const tid = row.transaction_id;
 
+    //TODO: FIX THIS FOR PRODUCTION:
+    //Currently, for display testing purposes, we're treating all negative charges as positive charges (i.e., income as expenses)
+    //Future production versions should distinguish between income and expenses.
     if (value < 0) {
-      continue;
+      value = Math.abs(Number(value));
     }
 
     if (c1) {

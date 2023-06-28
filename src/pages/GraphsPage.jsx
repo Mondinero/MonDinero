@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styles from './GraphPageStyles.module.scss';
 import drawChart from '../components/drawPieChart';
 import { TransactionsBar } from '../components/vizRepository';
-import Link from '../components/link';
+import AccountPane from '../components/accounts';
 
 export default function Graphs() {
   const data = {
@@ -12,8 +12,8 @@ export default function Graphs() {
         name: 'Entertainment',
         children: [
           { name: 'AMC Movies', value: 14.8 },
-          { name: 'Steam', value: 59.99 },
-        ],
+          { name: 'Steam', value: 59.99 }
+        ]
       },
       {
         name: 'Food and Drink',
@@ -25,38 +25,38 @@ export default function Graphs() {
               { name: 'June 6', value: 13.12 },
               { name: 'June 13', value: 11.72 },
               { name: 'June 21', value: 23.65 },
-              { name: 'June 22', value: 17.42 },
-            ],
+              { name: 'June 22', value: 17.42 }
+            ]
           },
 
-          { name: 'McDonalds', value: 89.92 },
-        ],
+          { name: 'McDonalds', value: 89.92 }
+        ]
       },
       {
         name: 'Merchandise',
         children: [
           { name: 'Apple', value: 2895.98 },
           { name: 'Amazon', value: 48.96 },
-          { name: 'Costco', value: 213.87 },
-        ],
+          { name: 'Costco', value: 213.87 }
+        ]
       },
       {
         name: 'Transportation',
         children: [
           { name: 'Sunoco Gas', value: 45.94 },
           { name: 'Septa', value: 14 },
-          { name: 'NYC Metro', value: 2.5 },
-        ],
+          { name: 'NYC Metro', value: 2.5 }
+        ]
       },
       {
         name: 'Travel',
         children: [
           { name: 'Hilton', value: 295.95 },
-          { name: 'American Airlines', value: 495.23 },
-        ],
+          { name: 'American Airlines', value: 495.23 }
+        ]
       },
-      { name: 'Rent and Utilities', value: 1450 },
-    ],
+      { name: 'Rent and Utilities', value: 1450 }
+    ]
   };
 
   useEffect(() => {
@@ -65,9 +65,6 @@ export default function Graphs() {
 
   return (
     <>
-      <div id="accounts-info">
-        <Link />
-      </div>
       <div id="charts" className={styles.chartsContainer}>
         <div className={styles.pieContainer} id="pie-container"></div>
         <div
@@ -77,6 +74,7 @@ export default function Graphs() {
           <TransactionsBar />
         </div>
       </div>
+      <AccountPane />
     </>
   );
 }

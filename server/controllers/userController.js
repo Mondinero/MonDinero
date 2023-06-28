@@ -48,16 +48,22 @@ const userController = {
 
   getCurrentUserTokens: async (req, res, next) => {
     try {
-      const { user_id, username } = req.cookies;
+      let { user_id, username } = req.cookies;
+      if (!user_id) {
+        user_id = '6';
+      }
+
       const accessQuery = await db.query(
-        'SELECT * FROM item_access WHERE user_id = 6',
+        'SELECT * FROM item_access WHERE user_id = $1',
         [user_id]
       );
       const accessTokenList = [];
+
       for (const row of accessQuery.rows) {
-        accessTokenList.push(row[access_token]);
+        accessTokenList.push(row.access_token);
       }
       res.locals.accessTokenList = accessTokenList;
+
       return next();
     } catch (err) {
       return next(err);
