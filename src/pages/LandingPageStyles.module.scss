@@ -72,7 +72,7 @@ body[theme='light'] {
 .welcome {
   text-align: center;
   position: fixed;
-  top: 28vh;
+  top: 34vh;
   z-index: 99;
   width: 100vw;
   font-size: clamp(36px, 4vw, 100px);
@@ -89,7 +89,7 @@ body[position='top'] {
 .motto {
   text-align: center;
   position: fixed;
-  top: 28vh;
+  top: 34vh;
   z-index: 99;
   width: 100vw;
   font-size: clamp(36px, 4vw, 100px);
@@ -106,10 +106,10 @@ body[position='middle'] {
 .logo {
   text-align: center;
   position: fixed;
-  top: 28vh;
+  top: 34vh;
   z-index: 99;
   width: 100vw;
-  font-size: clamp(36px, 3vw, 100px);
+  font-size: clamp(36px, 4vw, 100px);
   transition: 1s;
   opacity: 0;
 }
