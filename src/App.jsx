@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import { createBrowserRouter, Route, createRoutesFromElements, RouterProvider } from 'react-router-dom';
-import CredentialsContext from './CredentialsContext';
+import styles from './styles/AppStyles.module.scss';
 
 //Children components
 import LoginPage from './pages/LoginPage';
@@ -8,9 +8,9 @@ import SignupPage from './pages/SignupPage';
 import HomePage from './pages/HomePage';
 import LandingPage from './pages/LandingPage';
 import RootLayout from './components/RootLayout';
-
-//Importing Link, just for testing purposes
-import Link from './components/link';
+import Graphs from './pages/GraphsPage';
+import { setColorTheme } from './store/slices/appSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 // Dynamic rendering of components
 const router = createBrowserRouter(
@@ -20,29 +20,45 @@ const router = createBrowserRouter(
       <Route path='loginPage' element={<LoginPage />} />
       <Route path='signupPage' element={<SignupPage />} />
       <Route path='homePage' element={<HomePage />} />
+      <Route path='graphs' element={<Graphs />} />
     </Route>
   )
 );
 
 function App() {
-  // This bit is temporary -- testing Link
-  const [linkToken, setLinkToken] = useState(null);
-  const generateToken = async () => {
-    const resp = await fetch('api/create_link_token', { method: 'POST' });
-    const data = await resp.json();
-    console.log(data);
-    setLinkToken(data.link_token);
-  };
+  // darkmode on all pages
+  const dispatch = useDispatch();
+  const colorTheme = useSelector((state) => state.appSlice.colorTheme);
+  let currTheme;
+  let selectedDay;
+  let selectedNight;
 
-  useEffect(() => {
-    generateToken();
-  }, []);
+  if (window.matchMedia('(prefers-color-scheme: dark)').matches && colorTheme === null) {
+    dispatch(setColorTheme('dark'));
+  }
+
+  document.querySelector('body').setAttribute('theme', colorTheme);
+
+  if (colorTheme === 'dark') {
+    currTheme = <i className='fa-solid fa-moon'></i>;
+    selectedNight = <i className='fa-solid fa-check'></i>;
+  } else {
+    currTheme = <i className='fa-solid fa-sun'></i>;
+    selectedDay = <i className='fa-solid fa-check'></i>;
+  }
 
   return (
-    <div>
+    <>
       <RouterProvider router={router} />
-      <Link linkToken={linkToken} />
-    </div>
+      <button
+        className={styles.darkModeButton}
+        onClick={() => {
+          if (colorTheme === 'dark') dispatch(setColorTheme('light'));
+          else dispatch(setColorTheme('dark'));
+        }}>
+        <i className={`fa-solid fa-moon ${styles.moon}`}></i>
+      </button>
+    </>
   );
 }
 

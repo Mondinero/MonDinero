@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const cookieParser = require('cookie-parser');
-const userRoute = require('./routes/userRoute');
+const userRouter = require('./routes/userRouter');
 
 require('dotenv').config();
 
@@ -14,16 +14,17 @@ const configuration = new Configuration({
   baseOptions: {
     headers: {
       'PLAID-CLIENT-ID': process.env.PLAID_CLIENT_ID,
-      'PLAID-SECRET': process.env.PLAID_SECRET_SANDBOX
-    }
-  }
+      'PLAID-SECRET': process.env.PLAID_SECRET_SANDBOX,
+    },
+  },
 });
 
 const client = new PlaidApi(configuration);
 
 module.exports = client;
 
-const apiRouter = require('./apiRouter');
+const apiRouter = require('./routes/apiRouter');
+const budgetRouter = require('./routes/budgetRouter');
 
 const PORT = process.env.PORT || 3000;
 
@@ -37,10 +38,10 @@ if (process.env.NODE_ENV === 'production') {
   app.use('/assets', express.static(path.resolve(__dirname, '../src')));
 }
 
+// Routers
 app.use('/api/', apiRouter);
-
-// Routers to be updated
-app.use('/server/user', userRoute);
+app.use('/server/user', userRouter);
+app.use('/budget/', budgetRouter);
 
 // 404 error handler
 app.use((req, res) => {
@@ -53,7 +54,7 @@ app.use((err, req, res, next) => {
   const defaultErr = {
     log: 'Express error handler caught unknown middleware error',
     status: 500,
-    message: { err: 'An error occurred' }
+    message: { err: 'An error occurred' },
   };
   const errorObj = Object.assign({}, defaultErr, err);
   console.log(errorObj.log);

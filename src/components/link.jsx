@@ -1,31 +1,37 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { usePlaidLink } from 'react-plaid-link';
 
 const Link = (props) => {
   const { linkToken } = props;
-  const onSuccess = useCallback((public_token, metadata) => {
+  const onSuccess = (public_token, metadata) => {
+    console.log('Metadata:');
+    console.dir(metadata);
     fetch('/api/exchange_public_token', {
       method: 'POST',
       body: JSON.stringify({ public_token }),
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json' }
     })
-      .then((resp) => resp.json())
-      .then((data) => {
-        if (data.ok) {
+      .then((resp) => {
+        if (resp.ok) {
           console.log('Successfully stored access token');
+        } else {
+          console.log(
+            'Received response other than OK when storing access token'
+          );
         }
       })
       .catch((err) => {
-        console.log(`Encountered error while requesting to exchange/store access token: ${err}`);
+        console.log(
+          `Encountered error while requesting to exchange/store access token: ${err}`
+        );
       });
-  }, []);
+  };
 
   const config = {
     token: linkToken,
     receivedRedirectUri: null,
-    onSuccess,
+    onSuccess
   };
-  console.log(config);
   const { open, ready, error } = usePlaidLink(config);
   if (error) {
     console.log(error);
@@ -33,7 +39,9 @@ const Link = (props) => {
 
   return (
     <div>
-      <button onClick={open}>Link a new account</button>
+      <button onClick={open} disabled={!ready}>
+        Link a new account
+      </button>
     </div>
   );
 };

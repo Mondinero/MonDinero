@@ -7,8 +7,8 @@ export const appSlice = createSlice({
     firstName: null,
     errorMessage: '',
     monthlyIncome: '$150,000',
-    expenses: {}
-
+    expenses: {},
+    colorTheme: null,
   },
 
   reducers: {
@@ -25,9 +25,11 @@ export const appSlice = createSlice({
       state.monthlyIncome = action.payload
     },
     setExpenses: (state, action) => {
-      state.expenses = { ...state.expenses, ...action.payload};
-      
-    }
+      state.expenses = { ...state.expenses, ...action.payload}
+    },
+      setColorTheme: (state, action) => {
+      state.colorTheme = action.payload;
+    },
   },
 
 
@@ -39,6 +41,7 @@ export const {
   setErrorMsg,
   setMonthlyIncome,
   setExpenses,
-
+  setColorTheme,
 } = appSlice.actions;
 export default  appSlice.reducer;
+

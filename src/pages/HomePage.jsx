@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useEffect } from 'react';
+import Link from '../components/link';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLinkToken } from '../store/slices/credentialSlice';
+import { TransactionsBar } from '../components/vizRepository';
 import styles from '../styles/Home.module.scss';
-import { useDispatch, useSelector } from "react-redux";
 
 
 import {
@@ -47,14 +50,24 @@ function HomePage() {
     itemDiv.appendChild(amountText)
     allExpensesDiv.appendChild(itemDiv)
     }
-
-
-    
-
-  
-    
-
   }
+
+  const linkToken = useSelector((state) => state.credentialSlice.linkToken);
+
+  const generateToken = async () => {
+    const resp = await fetch('api/create_link_token', { method: 'POST' });
+    const data = await resp.json();
+    dispatch(setLinkToken(data.link_token));
+  };
+
+  useEffect(() => {
+    generateToken();
+  }, []);
+
+  useEffect(() => {
+    console.log('Logging linkTokens obj from home page:');
+    console.log(linkToken);
+  }, [linkToken]);
 
   return (
     <React.Fragment>
@@ -105,6 +118,9 @@ function HomePage() {
         </div>
      
       </div>
+
+      <TransactionsBar />
+      <Link linkToken={linkToken} />
     </React.Fragment>
    
   )
