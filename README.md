@@ -22,8 +22,8 @@ Join us and take back control of your money!
 
 ## Built with ♥
 
-Thad White | <a href='https://github.com/thadd225'>Github</a> | <a href='https://www.linkedin.com/in/thad-white/'>LinkedIn</a><br>
-Fabrizzio Quintanilla | <a href='https://github.com/Fab3005'>Github</a> | <a href='https://www.linkedin.com/in/fabrizzio-quintanilla-b58388244/'>LinkedIn</a><br>
-Hunter Shaw | <a href='https://github.com/HShaw215'>Github</a> | <a href='https://www.linkedin.com/in/hunter-shaw-39430a181/'>LinkedIn</a><br>
-Kai Farrell | <a href='https://github.com/farrellkai'>Github</a> | <a href='https://www.linkedin.com/in/kaifarrell/'>LinkedIn</a><br>
+Sooji Kim | <a href='https://github.com/sjk06'>Github</a> | <a href='https://www.linkedin.com/in/sooji-suzy-kim/'>LinkedIn</a><br>
+Yueran Li | <a href='https://github.com/kneazle714'>Github</a> | <a href='https://www.linkedin.com/in/yueranli/'>LinkedIn</a><br>
+Kyle Slugg-Urbino | <a href='https://github.com/kyleslugg'>Github</a> | <a href='https://www.linkedin.com/in/kyle-slugg/'>LinkedIn</a><br>
+Praise Emmanuel | <a href='https://github.com/praisepelumi'>Github</a> | <a href='https://www.linkedin.com/in/praiseemmanuel/'>LinkedIn</a><br>
 Kevin Fan | <a href='https://github.com/kfan1'>Github</a> | <a href='https://www.linkedin.com/in/kfan1/'>LinkedIn</a><br>
