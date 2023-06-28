@@ -45,12 +45,19 @@ function HomePage() {
         </div>
         
         <p>Enter Your Expenses</p>
+
         <div>
-          <form action="">
-            <input type="text" placeholder="Description" />
+          <label for="expense">Select an Expense:</label>
+          <select name="expense" id="expense">
+            <option value="rent" selected>Rent</option>
+            <option value="food and drink">Food and Drink</option>
+            <option value="entertainment">Entertainment</option>
+            <option value="transportation">Transportation</option>
+          </select>
+          
             <input type="number" placeholder="Amount"  min="1" step="any" />
             <button type="submit">Add</button>
-          </form>  
+        
         </div>
 
         <div>
