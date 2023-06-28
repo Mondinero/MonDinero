@@ -19,13 +19,23 @@ apiRouter.post(
   }
 );
 
-apiRouter.post('/accounts/balance/get', userController.getCurrentUserTokens, apiController.getBalances, (req, res) => {
-  return res.status(200).json(res.locals.balance);
-})
+apiRouter.post(
+  '/accounts/balance/get',
+  userController.getCurrentUserTokens,
+  apiController.getBalances,
+  (req, res) => {
+    return res.status(200).json(res.locals.balance);
+  }
+);
 
-apiRouter.post('/transactions/get', apiController.getTransactions, (req, res) => {
-  return res.status(200).json(res.locals.transactions);
-})
+apiRouter.post(
+  '/transactions/get',
+  userController.getCurrentUserTokens,
+  apiController.getTransactions,
+  (req, res) => {
+    return res.status(200).json(res.locals.transactions);
+  }
+);
 
 apiRouter.get(
   '/testTransactions',
@@ -38,5 +48,7 @@ apiRouter.get(
 apiRouter.get('/testBalances', apiController.testBalance, (req, res) => {
   return res.sendStatus(200);
 });
+
+apiRouter.get('/data/pieChart');
 
 module.exports = apiRouter;
