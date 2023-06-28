@@ -6,7 +6,9 @@ export const appSlice = createSlice({
     username: null,
     firstName: 'Clyde',
     errorMessage: '',
-    monthlyIncome: null
+    monthlyIncome: '$150,000',
+    expenses: {}
+
   },
 
   reducers: {

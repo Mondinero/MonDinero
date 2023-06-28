@@ -40,7 +40,21 @@ function HomePage() {
         </div>
 
         <div>
-          <p>Expenses</p>
+          <span>Total Income</span>
+          <span>{useSelector((state) => state.appSlice.monthlyIncome)}</span>
+        </div>
+        
+        <p>Enter Your Expenses</p>
+        <div>
+          <form action="">
+            <input type="text" placeholder="Description" />
+            <input type="number" placeholder="Amount"  min="1" step="any" />
+            <button type="submit">Add</button>
+          </form>  
+        </div>
+
+        <div>
+          
         </div>
      
       </div>
