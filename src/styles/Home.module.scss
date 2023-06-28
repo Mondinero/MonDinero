@@ -1,7 +1,149 @@
+@import '_colors.scss';
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+button {
+  color: $fourthColor;
+  background-color: $firstColor;
+  border-radius: 6px;
+  border-style: none;
+  padding: 0.5rem;
+
+}
 
 .container {
-  background-color: rgba(17, 48, 60, 0.5);
+  background-color: rgba(22, 114, 190, 0.3);
   padding-top: 5rem;
+  height: 200vh;
+  font-size: 1.5rem;
+  font-family: 'Catamaran', 'sans-serif';
+  display: flex;
+  
+}
 
-  height: 100vh;
+.leftContent {
+  flex: 1;
+  margin-left: 2rem;
+}
+
+.rightContent {
+  flex: 1;
+  justify-content: flex-end;
+  margin-left: 10rem;
+ 
+}
+
+body[theme='dark'] {
+  .name {
+    color: #A2ff86;
+    font-size: 2.2rem;
+    font-weight: bolder;
+  }
+} 
+
+body[theme='light'] {
+  .name {
+    color: $firstColor;
+    font-size: 2.2rem;
+    font-weight: bolder;
+  }
+}
+
+
+
+
+body[theme='dark'] {
+  .month {
+    color: #4cdd24;
+    font-size: 2rem;
+    font-weight: bolder;
+    padding-left: 0.4rem;
+  }
+}
+
+body[theme='light'] {
+  .month {
+    color: $firstColor;
+    font-size: 2rem;
+    font-weight: bolder;
+    padding-left: 0.4rem;
+  }
+}
+
+.box {
+  border: 1px solid white;
+  width: 500px;
+   
+}
+
+.table {
+  border: 1px solid $fourthColor;
+  border-collapse: separate;
+  border-spacing: 30px;
+  margin-top: 2rem;
+}
+
+.amount {
+  text-align: center;
+}
+
+.tableHeader {
+  font-weight: bolder;
+  color: $fourthColor;
+}
+
+.addIncomeBtn {
+  margin-left: 0.8rem;
+}
+
+.footerLine {
+  height: 0.5px;
+  background-color: #ccc;
+  margin: 0;
+  padding: 0;
+}
+
+.saveBudgetBtn {
+  margin-left: 7.5rem;
+  margin-top: 1rem;
+}
+
+.addExpenseBtn {
+  margin-left: 1rem;
+}
+
+.totalIncome {
+  color: $fourthColor;
+  font-size: 1.7rem;
+  font-weight: bold;
+}
+
+body[theme='dark'] {
+  .button {
+    color: $fourthColor
+  };
+  .totalIncome {
+    color: $fourthColor
+  };
+  .tableHeader {
+    color: $fourthColor
+  }
+
+}
+
+body[theme='light'] {
+  .button {
+    color:$firstColor
+  };
+  .totalIncome {
+    color: $firstColor
+  };
+  .tableHeader {
+    color: $firstColor
+  }
+
+}
+
+.numAmount {
+  margin-left: 1rem;
+  margin-bottom: 1rem;
 }
