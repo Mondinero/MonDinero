@@ -97,13 +97,17 @@ apiController.getBalances = async (req, res, next) => {
     for (let i = 0; i < access_tokens.length; i++) {
       console.log('INSIDE OUTER FOR LOOP');
       const request = { access_token: access_tokens[i].access_token };
+      console.log('request is: ', request);
       const response = await client.accountsBalanceGet(request);
       console.log('response.data is: ', response.data);
       
       const accounts = response.data.accounts;
       for (let j = 0; j < accounts.length; j++) {
         if (accounts[j].subtype === 'checking') {
-          balanceArr.push(accounts[j].balances.available);
+          balanceArr.push({
+            bank: accounts[j].name,
+            balance: accounts[j].balances.available
+          });
         }
       }
     }
@@ -121,40 +125,46 @@ apiController.getBalances = async (req, res, next) => {
     }
   };
 
+  
 apiController.getTransactions = async (req, res, next) => {
+  console.log('INSIDE GET TRANSACTIONS');
+  const { user_id } = req.body;
+
+  const query = 'SELECT * FROM item_access WHERE user_id = $1';
+  const data = await db.query(query, [user_id]);
+  console.log('data.rows is: ', data.rows);
+  const access_token = data.rows[0].access_token;
+
   const date = new Date();
   let day = date.getDate();
-  let month = date.getMonth();
+  let month = date.getMonth()+1;
   let year = date.getFullYear();
-  
+
   const request = {
-    access_token: accessToken,
-    start_date: `{year}-01-01`,
-    end_date: `{year}-{month}-{day}`,
+    access_token: access_token,
     options: {
       include_personal_finance_category: true,
-      // count: 100,
     },
   };
+
+  console.log('get transactions request is: ', request);
+
   try {
-    const response = await client.transactionsGet(request);
-    let transactions = response.data.transactions;
-    const total_transactions = response.data.total_transactions;
-    // Manipulate the offset parameter to paginate
-    // transactions and retrieve all available data
-    while (transactions.length < total_transactions) {
-      const paginatedRequest = {
-        access_token: accessToken,
-        start_date: `{year}-01-01`,
-        end_date: `{year}-{month}-{day}`,
-        options: {
-          offset: transactions.length,
-          include_personal_finance_category: true,
-        },
-      };
-      const paginatedResponse = await client.transactionsGet(paginatedRequest);
-      transactions = transactions.concat(paginatedResponse.data.transactions);
+    const response = await client.transactionsSync(request);
+    console.log('this is the response', response);
+    let transactions = response.data.added;
+    console.log('transactions are: ', transactions);
+    console.log('first transaction: ', transactions[0]);
+    const transactionArr = [];
+    for (let i = 0; i < transactions.length; i++) {
+      transactionArr.push({
+        account_id: transactions[i].account_id,
+        date: transactions[i].date,
+        amount: transactions[i].amount,
+        category: transactions[i].personal_finance_category.primary,
+      })
     }
+    res.locals.transactions = transactionArr;
     return next();
   } catch (err) {
     return next(

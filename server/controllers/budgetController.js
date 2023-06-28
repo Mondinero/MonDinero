@@ -19,6 +19,7 @@ const budgetController = {
   createBudget: async (req, res, next) => {
     const {
       user_id,
+      month,
       income,
       entertainment,
       food_and_drink,
@@ -29,11 +30,12 @@ const budgetController = {
     } = req.body;
 
     const sqlQuery =
-      'INSERT INTO budget (user_id, income, entertainment, food_and_drink, general_merchandise, transportation, travel, rent_and_utilities) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
+      'INSERT INTO budget (user_id, month, income, entertainment, food_and_drink, general_merchandise, transportation, travel, rent_and_utilities) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)';
 
       try {
       db.query(sqlQuery, [
         user_id,
+        month,
         income,
         entertainment,
         food_and_drink,

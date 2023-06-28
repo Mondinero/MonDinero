@@ -25,6 +25,7 @@ CREATE TABLE users (
 
 CREATE TABLE budget (
   "_id" serial NOT NULL,
+  "month" varchar NOT NULL,
   "user_id" int NOT null,
   "income" varchar NOT NULL,
   "entertainment" varchar NOT NULL,
