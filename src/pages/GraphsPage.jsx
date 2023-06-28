@@ -17,8 +17,10 @@ export default function Graphs() {
     fetch('/api/data/pieChart')
       .then((res) => res.json())
       .then((res) => {
-        document.querySelector('#pie-container-budget').appendChild(drawChart(budget));
-        document.querySelector('#pie-container').appendChild(drawChart(res));
+        if (!res.err) {
+          document.querySelector('#pie-container-budget').appendChild(drawChart(budget));
+          document.querySelector('#pie-container').appendChild(drawChart(res));
+        }
       });
   }, []);
 

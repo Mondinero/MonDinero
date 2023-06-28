@@ -31,12 +31,7 @@ const userController = {
     const sqlQuery =
       'INSERT INTO users (first_name, last_name, username, password) VALUES ($1, $2, $3, $4) RETURNING _id';
     try {
-      const data = await db.query(sqlQuery, [
-        firstName,
-        lastName,
-        username,
-        hashPassword
-      ]);
+      const data = await db.query(sqlQuery, [firstName, lastName, username, hashPassword]);
       res.locals._id = data.rows[0]._id;
       res.locals.firstName = data.rows[0].first_name;
       res.locals.username = data.rows[0].username;
@@ -52,12 +47,9 @@ const userController = {
       if (!user_id) {
         user_id = 6;
       }
-      console.log(req.cookies);
+      console.log('req.cookies: ', req.cookies);
 
-      const accessQuery = await db.query(
-        'SELECT * FROM item_access WHERE user_id = $1',
-        [user_id]
-      );
+      const accessQuery = await db.query('SELECT * FROM item_access WHERE user_id = $1', [user_id]);
       const accessTokenList = [];
 
       for (const row of accessQuery.rows) {
@@ -69,7 +61,7 @@ const userController = {
     } catch (err) {
       return next(err);
     }
-  }
+  },
 };
 
 module.exports = userController;

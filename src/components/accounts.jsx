@@ -36,13 +36,7 @@ const AccountPane = () => {
   useEffect(() => {
     const newAccounts = [];
     for (const row of accountData) {
-      newAccounts.push(
-        <Account
-          name={row.name}
-          current={row.current}
-          available={row.available}
-        />
-      );
+      newAccounts.push(<Account name={row.name} current={row.current} available={row.available} />);
     }
     setAccounts(newAccounts);
   }, [accountData]);

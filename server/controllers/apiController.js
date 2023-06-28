@@ -140,7 +140,7 @@ apiController.getTransactions = async (req, res, next) => {
   // const access_token = data.rows[0].access_token;
 
   const access_token = res.locals.accessTokenList[0];
-  console.log(access_token);
+  console.log('access_token: ', access_token);
 
   const request = {
     access_token: access_token,
