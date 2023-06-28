@@ -1,36 +1,18 @@
 @import '_colors.scss';
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
-li{
-  list-style-type: none;
-  margin-left: 1rem;
-  font-weight: bolder;
-  font-size: 1.4rem;
-}
-
-li:hover{
-  cursor: pointer;
-}
-
 nav {
   width: 100%;
-  z-index:1; /*Add this*/
-  width:100%;
+  z-index: 1;
 }
 
 .logo {
-  font-size: 20px;
   color: $firstColor;
-  // // top: 0;
-  // z-index: 1;
-  // // left: calc(50vw - 240px);
 }
 
 .container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  margin: 0px;
 }
 
 .navHeader {
@@ -41,26 +23,21 @@ nav {
   justify-content: space-evenly;
   align-items: center;
   background-color: rgba(162, 255, 134, 0.5);
+  padding: 0 10vw;
 }
 
 .link {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
   font-weight: bolder;
   font-size: 1.4rem;
+  text-decoration: none;
+  padding: 0 15px;
+  color: inherit;
 }
 
 .center {
-  display: flex;
-  justify-content: space-between;
-  align-items: center; 
-  margin-left: 4rem;
+  padding-left: 6vw;
 }
-
-
-
-
 
 .navBar {
   width: 100%;

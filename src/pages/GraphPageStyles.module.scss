@@ -1,12 +1,22 @@
 .pieContainer {
-  width: 100%;
+  padding-top: 120px;
+  padding-left: 80px;
+  width: 45vw;
+  min-width: 600px;
 }
 
-.chartsContainer {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+text {
+  transition: 1s;
 }
 
-.transactionsBarContainer {
-  width: 100;
+body[theme='dark'] {
+  text {
+    fill: white;
+  }
+}
+
+body[theme='light'] {
+  text {
+    fill: black;
+  }
 }
