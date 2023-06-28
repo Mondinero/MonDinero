@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "NODE_ENV=production webpack",
     "server": "NODE_ENV=production nodemon ./server/server.js",
-    "dev": "concurrently \"cross-env NODE_ENV=development webpack-dev-server --hot --progress --color \" \"NODE_ENV=development nodemon ./server/server.js\""
+    "dev": "concurrently \"cross-env NODE_ENV=development webpack-dev-server --hot --progress --color \" \"NODE_ENV=development nodemon ./server/server.js\"",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
     "d3": "^7.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "gh-pages": "^5.0.0",
     "mongoose": "^7.2.0",
     "pg": "^8.11.1",
     "plaid": "^14.1.0",
