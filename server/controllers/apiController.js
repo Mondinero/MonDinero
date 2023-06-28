@@ -97,12 +97,11 @@ apiController.getBalances = async (req, res, next) => {
     for (let i = 0; i < access_tokens.length; i++) {
       console.log('INSIDE OUTER FOR LOOP');
       const request = { access_token: access_tokens[i].access_token };
- 
       const response = await client.accountsBalanceGet(request);
       console.log('response.data is: ', response.data);
+      
       const accounts = response.data.accounts;
       for (let j = 0; j < accounts.length; j++) {
-      console.log('INSIDE INNER FOR LOOP');
         if (accounts[j].subtype === 'checking') {
           balanceArr.push(accounts[j].balances.available);
         }
