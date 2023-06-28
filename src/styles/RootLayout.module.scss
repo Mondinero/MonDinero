@@ -1,21 +1,21 @@
 @import '_colors.scss';
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
-li{
+li {
   list-style-type: none;
   margin-left: 1rem;
   font-weight: bolder;
   font-size: 1.4rem;
 }
 
-li:hover{
+li:hover {
   cursor: pointer;
 }
 
 nav {
   width: 100%;
-  z-index:1; /*Add this*/
-  width:100%;
+  z-index: 1; /*Add this*/
+  width: 100%;
 }
 
 .logo {
@@ -29,7 +29,6 @@ nav {
 .container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
   margin: 0px;
 }
 
@@ -54,13 +53,9 @@ nav {
 .center {
   display: flex;
   justify-content: space-between;
-  align-items: center; 
+  align-items: center;
   margin-left: 4rem;
 }
-
-
-
-
 
 .navBar {
   width: 100%;
