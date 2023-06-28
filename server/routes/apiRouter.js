@@ -13,23 +13,13 @@ apiRouter.post('/exchange_public_token', apiController.exchangePublicToken, (req
   res.status(200).json({ public_token_exchange: 'complete' });
 });
 
-apiRouter.post(
-  '/accounts/balance/get',
-  userController.getCurrentUserTokens,
-  apiController.getBalances,
-  (req, res) => {
-    return res.status(200).json(res.locals.balance);
-  }
-);
+apiRouter.post('/accounts/balance/get', userController.getCurrentUserTokens, apiController.getBalances, (req, res) => {
+  return res.status(200).json(res.locals.balance);
+});
 
-apiRouter.post(
-  '/transactions/sync',
-  userController.getCurrentUserTokens,
-  apiController.getTransactions,
-  (req, res) => {
-    return res.status(200).json(res.locals.transactions);
-  }
-);
+apiRouter.post('/transactions/sync', userController.getCurrentUserTokens, apiController.getTransactions, (req, res) => {
+  return res.status(200).json(res.locals.transactions);
+});
 
 apiRouter.get('/testTransactions', apiController.testTransactions, (req, res) => {
   return res.status(200).json(res.locals.testTransactionsJson);
