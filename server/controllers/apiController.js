@@ -84,7 +84,6 @@ apiController.exchangePublicToken = (req, res, next) => {
 apiController.getBalances = async (req, res, next) => {
   console.log('INSIDE GET BALANCES');
 
-  // assuming access_token has been saved on the user making the request
   const { user_id } = req.body;
 
   const query = 'SELECT * FROM item_access WHERE user_id = $1';
@@ -134,11 +133,6 @@ apiController.getTransactions = async (req, res, next) => {
   const data = await db.query(query, [user_id]);
   console.log('data.rows is: ', data.rows);
   const access_token = data.rows[0].access_token;
-
-  const date = new Date();
-  let day = date.getDate();
-  let month = date.getMonth()+1;
-  let year = date.getFullYear();
 
   const request = {
     access_token: access_token,
