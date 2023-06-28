@@ -1,27 +1,20 @@
-import React from "react";
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from "react-redux";
+import { useDispatch } from 'react-redux';
 
+import { setUserName, setFirstName, setErrorMsg } from '../store/slices/appSlice';
 
-import {
-  setUserName,
-  setFirstName,
-  setErrorMsg
-} from '../store/slices/appSlice'
-
-import styles from '../styles/Verify.module.scss'
+import styles from '../styles/Verify.module.scss';
 function LoginPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogin = async (e) =>  {
+  const handleLogin = async (e) => {
     e.preventDefault();
- 
-    try {      
+    
+    try {
       const usernameInput = e.currentTarget.elements[0];
       const passwordInput = e.currentTarget.elements[1];
-
-      
       const username = usernameInput.value;
       const password = passwordInput.value;
 
@@ -30,7 +23,6 @@ function LoginPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        
         body: JSON.stringify({username, password})
       })
 
@@ -41,13 +33,12 @@ function LoginPage() {
         dispatch(setFirstName(data.firstName));
         navigate('/homePage')
       } else {
-        dispatch(setErrorMsg('Invalid username or password'))
+        dispatch(setErrorMsg('Invalid username or password'));
       }
+    } catch (err) {
+      console.log(err);
     }
-    catch(err) {
-      console.log(err)
-    }
-  }
+  };
 
   return (
     <React.Fragment>
@@ -62,19 +53,18 @@ function LoginPage() {
             <input type="password" placeholder="password" className={styles.input} />
             <button type="submit" className={styles.primaryBtn} >Login</button>
           </form>
-          
-          <button className={`${styles.secondaryBtn}`} onClick={() => {
-            navigate('/signupPage')
-          }}>
+
+          <button
+            className={`${styles.secondaryBtn}`}
+            onClick={() => {
+              navigate('/signupPage');
+            }}>
             Not a member?
           </button>
         </div>
-     
-
-
       </div>
     </React.Fragment>
-  )
+  );
 }
 
 export default LoginPage;

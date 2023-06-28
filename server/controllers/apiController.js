@@ -12,14 +12,14 @@ apiController.createLinkToken = (req, res, next) => {
   const clientUserId = req.cookies.user_id;
   const request = {
     user: {
-      client_user_id: clientUserId
+      client_user_id: clientUserId,
     },
     client_name: 'OurAppName',
     //redirect_uri: 'https://redirectmeto.com/http://localhost:8080/',
     products: [Products.Auth],
     language: 'en',
     //redirect_uri: 'https://localhost:3000/',
-    country_codes: [CountryCode.Us]
+    country_codes: [CountryCode.Us],
   };
 
   client
@@ -31,11 +31,7 @@ apiController.createLinkToken = (req, res, next) => {
     })
     .catch((err) => {
       return next(
-        errorHandler.makeError(
-          'createLinkToken',
-          `Encountered error while creating link token: ${err}`,
-          500
-        )
+        errorHandler.makeError('createLinkToken', `Encountered error while creating link token: ${err}`, 500)
       );
     });
 };
@@ -44,14 +40,13 @@ apiController.exchangePublicToken = (req, res, next) => {
   const { public_token } = req.body;
   client
     .itemPublicTokenExchange({
-      public_token: public_token
+      public_token: public_token,
     })
     .then((resp) => {
       const { access_token, item_id, request_id } = resp.data;
       const { user_id } = req.cookies;
       const params = [item_id, user_id, access_token, request_id];
-      const query =
-        'INSERT INTO item_access (item_id, user_id, access_token, request_id) VALUES ($1, $2, $3, $4)';
+      const query = 'INSERT INTO item_access (item_id, user_id, access_token, request_id) VALUES ($1, $2, $3, $4)';
 
       db.query(query, params)
         .then((result) => {
@@ -171,18 +166,11 @@ apiController.getTransactions = async (req, res, next) => {
 apiController.testTransactions = (req, res, next) => {
   client
     .transactionsSync({
-      access_token: 'access-sandbox-30e0347a-8520-4b1d-b061-d9e09ff04d59'
+      access_token: 'access-sandbox-30e0347a-8520-4b1d-b061-d9e09ff04d59',
     })
     .then((resp) => {
-      fs.writeFileSync(
-        path.resolve(__dirname, '../test_data/test_transactions.json'),
-        JSON.stringify(resp.data)
-      );
-      const testJson = fs
-        .readFileSync(
-          path.resolve(__dirname, '../test_data/graph_test_transactions.json')
-        )
-        .toString();
+      fs.writeFileSync(path.resolve(__dirname, '../test_data/test_transactions.json'), JSON.stringify(resp.data));
+      const testJson = fs.readFileSync(path.resolve(__dirname, '../test_data/graph_test_transactions.json')).toString();
       console.log(testJson);
       res.locals.testTransactionsJson = JSON.parse(testJson);
       return next();
@@ -192,13 +180,10 @@ apiController.testTransactions = (req, res, next) => {
 apiController.testBalance = (req, res, next) => {
   client
     .accountsBalanceGet({
-      access_token: 'access-sandbox-30e0347a-8520-4b1d-b061-d9e09ff04d59'
+      access_token: 'access-sandbox-30e0347a-8520-4b1d-b061-d9e09ff04d59',
     })
     .then((resp) => {
-      fs.writeFileSync(
-        path.resolve(__dirname, '../test_data/test_balances.json'),
-        JSON.stringify(resp.data)
-      );
+      fs.writeFileSync(path.resolve(__dirname, '../test_data/test_balances.json'), JSON.stringify(resp.data));
 
       return next();
     });
