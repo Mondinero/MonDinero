@@ -96,49 +96,49 @@ apiController.getBalances = async (req, res, next) => {
 };
 
 apiController.getTransactions = async (req, res, next) => {
-  // Provide a cursor from your database if you've previously received one for the Item. Leave null if this is your first sync call for this Item. The first request will return a cursor.
-  let cursor = database.getLatestCursorOrNull(itemId);
-  // New transaction updates since "cursor"
-  let added = [];
-  let modified = [];
-  // Removed transaction ids
-  let removed = [];
-  let hasMore = true;
-  // Iterate through each page of new transaction updates for item
-  while (hasMore) {
-    const request = {
-      access_token: accessToken,
-      cursor: cursor,
-      options: { include_personal_finance_category: true },
-    };
-
-    try {
-      const response = await client.transactionsSync(request);
-      const data = response.data;
-      // Add this page of results
-      added = added.concat(data.added);
-      modified = modified.concat(data.modified);
-      removed = removed.concat(data.removed);
-      hasMore = data.has_more;
-      // Update cursor to the next cursor
-      cursor = data.next_cursor;
-
-     
-      return next();
-    } catch (err) {
-      return next(
-        errorHandler.makeError(
-          'getTransactions',
-          `Encountered error while getting account transactions: ${err}`,
-          500,
-          'Encountered error while getting account transactions'
-        )
-      );
+  const date = new Date();
+  let day = date.getDate();
+  let month = date.getMonth();
+  let year = date.getFullYear();
+  const request = {
+    access_token: accessToken,
+    start_date: `{year}-{month}-01`,
+    end_date: `{year}-{month}-{day}`,
+    options: {
+      include_personal_finance_category: true,
+      // count: 100,
+    },
+  };
+  try {
+    const response = await client.transactionsGet(request);
+    let transactions = response.data.transactions;
+    const total_transactions = response.data.total_transactions;
+    // Manipulate the offset parameter to paginate
+    // transactions and retrieve all available data
+    while (transactions.length < total_transactions) {
+      const paginatedRequest = {
+        access_token: accessToken,
+        start_date: `{year}-{month}-01`,
+        end_date: `{year}-{month}-{day}`,
+        options: {
+          offset: transactions.length,
+          include_personal_finance_category: true,
+        },
+      };
+      const paginatedResponse = await client.transactionsGet(paginatedRequest);
+      transactions = transactions.concat(paginatedResponse.data.transactions);
     }
+    return next();
+  } catch (err) {
+    return next(
+      errorHandler.makeError(
+        'getTransactions',
+        `Encountered error while getting account transactions: ${err}`,
+        500,
+        'Encountered error while getting account transactions'
+      )
+    );
   }
-
-  // Persist cursor and updated data
-  database.applyUpdates(itemId, added, modified, removed, cursor);
 };
 
 module.exports = apiController;
