@@ -9,7 +9,7 @@ function RootLayout() {
       <header className={styles.navHeader}>
         <nav>
           <ul className={styles.navBar}>
-            <Link className={styles.link} to='/'>
+            <Link className={styles.link} to='/homePage'>
               <i className={`fa-solid fa-arrow-up ${styles.logo}`}></i>
               Home
             </Link>
@@ -19,6 +19,9 @@ function RootLayout() {
             <div>
               <Link className={styles.link} to='/loginPage'>
                 Login
+              </Link>
+              <Link className={styles.link} to='/graphs'>
+                Graphs
               </Link>
               <Link className={styles.link} to='/aboutPage'>
                 About

@@ -1,7 +1,8 @@
 .pieContainer {
-  padding-top: 100px;
+  padding-top: 200px;
   width: 45vw;
   min-width: 800px;
+  max-width: 1000px;
 }
 
 text {
@@ -35,4 +36,32 @@ body[theme='light'] {
 
 .transactionsBarContainer {
   padding-top: 100px;
+  padding-left: 25vw;
+}
+
+.label {
+  position: absolute;
+  top: 100px;
+  font-size: 60px;
+}
+
+.expensesLabel {
+  right: 19.5vw;
+}
+
+.budgetLabel {
+  left: 19.5vw;
+}
+
+@media screen and (max-width: 1600px) {
+  .expensesLabel {
+    right: auto;
+    left: auto;
+    top: 1000px;
+  }
+
+  .budgetLabel {
+    left: auto;
+    right: auto;
+  }
 }
