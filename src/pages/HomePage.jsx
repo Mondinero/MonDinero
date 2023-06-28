@@ -55,7 +55,7 @@ function HomePage() {
   const linkToken = useSelector((state) => state.credentialSlice.linkToken);
 
   const generateToken = async () => {
-    const resp = await fetch('api/create_link_token', { method: 'POST' });
+    const resp = await fetch('/api/create_link_token', { method: 'POST' });
     const data = await resp.json();
     dispatch(setLinkToken(data.link_token));
   };

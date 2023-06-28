@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import * as d3 from 'd3';
 import styles from './GraphPageStyles.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { setColorTheme } from '../store/slices/appSlice';
 
 export default function Graphs() {
   const data = {
