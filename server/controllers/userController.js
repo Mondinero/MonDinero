@@ -8,12 +8,14 @@ const userController = {
     const sqlQuery = 'SELECT * FROM users WHERE username = $1';
     try {
       const data = await db.query(sqlQuery, [username]);
+      console.log(data.rows);
       if (!data.rows[0]) return next('incorrect username or password');
       res.locals._id = data.rows[0]._id;
       const compare = await bcrypt.compare(password, data.rows[0].password);
+      console.log(typeof compare);
       if (!compare) return next('incorrect username or password');
       else {
-        res.cookie('user_id', _id).cookie('username', username);
+        res.cookie('user_id', res.locals._id).cookie('username', username);
         return next();
       }
     } catch (err) {

@@ -18,13 +18,12 @@ function LoginPage() {
       const username = usernameInput.value;
       const password = passwordInput.value;
 
-      const response = await fetch('/servers/user/login', {
+      const response = await fetch('/server/user/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
       });
 
-      const data = await response.json();
       if (response.status === 200) {
         dispatch(setUserName(username));
         dispatch(setFirstName(data.firstName));

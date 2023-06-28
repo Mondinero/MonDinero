@@ -29,7 +29,7 @@ function SignupPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ firstName, lastName, username, password }),
       });
-      const data = await response.json();
+
       if (response.status === 200) {
         dispatch(setFirstName(firstName));
         dispatch(setUserName(username));
