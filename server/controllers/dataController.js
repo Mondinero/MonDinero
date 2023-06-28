@@ -1,7 +1,7 @@
 const dataController = {};
 
 dataController.transactionsTotalCategoryMonth = (req, res, next) => {
-  const rawData = res.locals.rawTransactionsData;
+  const rawData = res.locals.transactions;
   const months = {};
 
   for (const row of rawData) {
@@ -29,7 +29,7 @@ dataController.transactionsTotalCategoryMonth = (req, res, next) => {
 };
 
 dataController.transactionsCategoryFine = (req, res, next) => {
-  const rawData = res.locals.rawTransactionsData;
+  const rawData = res.locals.transactions;
   const c1set = new Set();
   const c2sets = {};
   const c3sets = {};

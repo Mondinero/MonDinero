@@ -88,6 +88,7 @@ apiController.getBalances = async (req, res, next) => {
   if (!user_id) {
     user_id = req.cookies.user_id;
   }
+  console.log(user_id);
 
   const query = 'SELECT * FROM item_access WHERE user_id = $1';
   const data = await db.query(query, [user_id]);
@@ -110,7 +111,7 @@ apiController.getBalances = async (req, res, next) => {
       console.log(response);
       for (let j = 0; j < accounts.length; j++) {
         balanceArr.push({
-          bank: accounts[j].name,
+          name: accounts[j].name,
           available: accounts[j].balances.available,
           current: accounts[j].balances.current
         });
@@ -144,6 +145,7 @@ apiController.getTransactions = async (req, res, next) => {
   // const access_token = data.rows[0].access_token;
 
   const access_token = res.locals.accessTokenList[0];
+  console.log(access_token);
 
   const request = {
     access_token: access_token,
@@ -155,7 +157,7 @@ apiController.getTransactions = async (req, res, next) => {
   // console.log('get transactions request is: ', request);
   try {
     const response = await client.transactionsSync(request);
-    // console.log('this is the response', response);
+    //console.log('this is the response', response);
     let transactions = response.data.added;
     // console.log('transactions are: ', transactions);
     // console.log('first transaction: ', transactions[0]);
@@ -171,6 +173,7 @@ apiController.getTransactions = async (req, res, next) => {
       });
     }
     res.locals.transactions = transactionArr;
+    console.log(transactionArr);
     return next();
   } catch (err) {
     return next(

@@ -53,7 +53,8 @@ apiRouter.get('/testBalances', apiController.testBalance, (req, res) => {
 
 apiRouter.get(
   '/data/pieChart',
-  apiController.testTransactions,
+  userController.getCurrentUserTokens,
+  apiController.getTransactions,
   dataController.transactionsCategoryFine,
   (req, res) => {
     res.status(200).json(res.locals.finalFormatted);
@@ -62,7 +63,8 @@ apiRouter.get(
 
 apiRouter.get(
   '/data/transactionsBar',
-  apiController.testTransactions,
+  userController.getCurrentUserTokens,
+  apiController.getTransactions,
   dataController.transactionsTotalCategoryMonth,
   (req, res) => {
     res.status(200).json(res.locals.finalFormatted);

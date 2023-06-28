@@ -50,8 +50,9 @@ const userController = {
     try {
       let { user_id, username } = req.cookies;
       if (!user_id) {
-        user_id = '6';
+        user_id = 6;
       }
+      console.log(req.cookies);
 
       const accessQuery = await db.query(
         'SELECT * FROM item_access WHERE user_id = $1',

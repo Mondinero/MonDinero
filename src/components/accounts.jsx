@@ -9,9 +9,9 @@ const Account = (props) => {
   console.log(name, current, available);
   return (
     <div className={styles.account}>
-      <div>Name: {name}</div>
-      <div>Current Balance: {current}</div>
-      <div>Available Balance: {available}</div>
+      <h2>{name}</h2>
+      <div>Current Balance: ${current}</div>
+      <div>Available Balance: ${available}</div>
     </div>
   );
 };
@@ -22,7 +22,7 @@ const AccountPane = () => {
   const [accounts, setAccounts] = useState();
 
   const getAccountData = async () => {
-    const data = await fetch('api/testBalances');
+    const data = await fetch('api/accounts/balance/get', { method: 'POST' });
     const formatted = await data.json();
     console.log(formatted);
 
