@@ -24,13 +24,17 @@ function SignupPage() {
       const username = usernameInput.value;
       const password = passwordInput.value;
 
+
       const response = await fetch('/server/user/signup', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ firstName, lastName, username, password }),
-      });
-
-      if (response.status === 200) {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        
+        body: JSON.stringify({firstName,lastName,username,password })
+        
+      })
+      if (response.ok) {
         dispatch(setFirstName(firstName));
         dispatch(setUserName(username));
         navigate('/homePage');
@@ -48,15 +52,12 @@ function SignupPage() {
         <div className={styles.content}>
           <i className={`fa-solid fa-arrow-up ${styles.logo} `}></i>
           <p className={styles.loginText}>Create Account</p>
-
-          <form action='' className={styles.form} onSubmit={(e) => handleSignup(e)}>
-            <input type='text' placeholder='First name' className={styles.input} />
-            <input type='text' placeholder='Last name' className={styles.input} />
-            <input type='text' placeholder='username' className={styles.input} />
-            <input type='password' placeholder='password' className={styles.input} />
-            <button type='submit' className={styles.primaryBtn}>
-              Sign Up
-            </button>
+          <form action="" className={styles.form} onSubmit={(e) => handleSignup(e)}>
+            <input type="text" placeholder="First name" className={styles.input} />
+            <input type="text" placeholder="Last name" className={styles.input} />
+            <input type="text" placeholder="username" className={styles.input}/>
+            <input type="password" placeholder="password" className={styles.input} />
+            <button type="submit" className={styles.primaryBtn} >Sign Up</button>
           </form>
 
           <button

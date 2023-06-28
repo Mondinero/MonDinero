@@ -11,23 +11,27 @@ function LoginPage() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    
     try {
       const usernameInput = e.currentTarget.elements[0];
       const passwordInput = e.currentTarget.elements[1];
-
       const username = usernameInput.value;
       const password = passwordInput.value;
 
       const response = await fetch('/server/user/login', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-      });
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({username, password})
+      })
 
-      if (response.status === 200) {
+      const data = await response.json();
+      console.log(data)
+      if (response.ok) {
         dispatch(setUserName(username));
         dispatch(setFirstName(data.firstName));
-        navigate('/');
+        navigate('/homePage')
       } else {
         dispatch(setErrorMsg('Invalid username or password'));
       }
@@ -42,12 +46,12 @@ function LoginPage() {
         <div className={styles.content}>
           <i className={`fa-solid fa-arrow-up ${styles.logo} `}></i>
           <p className={styles.loginText}>Login</p>
-          <form action='' className={styles.form} onSubmit={(e) => handleLogin(e)}>
-            <input type='text' placeholder='username' className={styles.input} />
-            <input type='text' placeholder='password' className={styles.input} />
-            <button type='submit' className={styles.primaryBtn}>
-              Login
-            </button>
+          <form action="" className={styles.form} onSubmit={(e) => {
+              handleLogin(e)
+            }}>
+            <input type="text" placeholder="username" className={styles.input} />
+            <input type="password" placeholder="password" className={styles.input} />
+            <button type="submit" className={styles.primaryBtn} >Login</button>
           </form>
 
           <button

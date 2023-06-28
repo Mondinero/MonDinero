@@ -11,6 +11,8 @@ const userController = {
       console.log(data.rows);
       if (!data.rows[0]) return next('incorrect username or password');
       res.locals._id = data.rows[0]._id;
+      res.locals.firstName = data.rows[0].first_name;
+      res.locals.username = data.rows[0].username;
       const compare = await bcrypt.compare(password, data.rows[0].password);
       console.log(typeof compare);
       if (!compare) return next('incorrect username or password');
@@ -31,6 +33,8 @@ const userController = {
     try {
       const data = await db.query(sqlQuery, [firstName, lastName, username, hashPassword]);
       res.locals._id = data.rows[0]._id;
+      res.locals.firstName = data.rows[0].first_name;
+      res.locals.username = data.rows[0].username;
       return next();
     } catch (err) {
       return next(err);

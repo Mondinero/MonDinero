@@ -19,37 +19,35 @@ function HomePage() {
 
 
   const firstName = useSelector((state) => state.appSlice.firstName);
+  const totalExpenses = useSelector((state) => state.appSlice.expenses);
 
-  function addExpense() {
-    const e = document.getElementById('expense');
+  const allExpensesDiv = document.getElementById('allExpenses');
+  const expensesArr = [];
+
+  for (let key in totalExpenses) {
+
+    expensesArr.push(
+      <div>
+         <span>{key}</span>
+         <span>{totalExpenses[key]}</span>
+      </div>
+     
+    );
+  }
+
+
+
+  function addExpense(e) {
+    e.preventDefault()
+    const val = document.getElementById('expense');
     //const value = e.value;
-    const desc = e.options[e.selectedIndex].text;
+    const desc = val.options[val.selectedIndex].text;
    
     const amount = document.getElementById('amount').value;
 
     dispatch(setExpenses({[desc]: amount}))
     
-    // Set routes to add it to database 
     
-
-    // Display it on page
-    const totalExpenses = useSelector((state) => state.expenses);
-
-    const allExpensesDiv = document.getElementById('allExpenses');
-    for (let key in totalExpenses) {
-    
-    console.log(key)
-    const itemDiv = document.createElement('div');
-    const descText = document.createElement('span');
-    const amountText = document.createElement('span');
-
-    descText.textContent = key;
-    amountText.textContent = totalExpenses[key];
-
-    itemDiv.appendChild(descText);
-    itemDiv.appendChild(amountText)
-    allExpensesDiv.appendChild(itemDiv)
-    }
   }
 
   const linkToken = useSelector((state) => state.credentialSlice.linkToken);
@@ -60,14 +58,14 @@ function HomePage() {
     dispatch(setLinkToken(data.link_token));
   };
 
-  useEffect(() => {
-    generateToken();
-  }, []);
+  // useEffect(() => {
+  //   generateToken();
+  // }, []);
 
-  useEffect(() => {
-    console.log('Logging linkTokens obj from home page:');
-    console.log(linkToken);
-  }, [linkToken]);
+  // useEffect(() => {
+  //   console.log('Logging linkTokens obj from home page:');
+  //   console.log(linkToken);
+  // }, [linkToken]);
 
   return (
     <React.Fragment>
@@ -109,13 +107,17 @@ function HomePage() {
           </select>
           
             <input type="number" placeholder="Amount" id='amount'  min="1" step="any" />
-            <button onClick={addExpense} type="submit">Add</button>
+            <button onClick={(e) => {
+              addExpense(e)
+            }} type="submit">Add</button>
         
         </div>
 
-        <div id="allExpenses">
-          
+        <div>
+          {expensesArr}
         </div>
+
+        <button>Save budget</button>
      
       </div>
 
