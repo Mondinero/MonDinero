@@ -19,14 +19,40 @@ function HomePage() {
 
   function addExpense() {
     const e = document.getElementById('expense');
-    const value = e.value;
+    //const value = e.value;
     const desc = e.options[e.selectedIndex].text;
-
+   
     const amount = document.getElementById('amount').value;
 
-    dispatch(setExpenses({desc: amount}))
-    const exp = useSelector((state) => state.expenses)
-    console.log(exp)
+    dispatch(setExpenses({[desc]: amount}))
+    
+    // Set routes to add it to database 
+    
+
+    // Display it on page
+    const totalExpenses = useSelector((state) => state.expenses);
+
+    const allExpensesDiv = document.getElementById('allExpenses');
+    for (let key in totalExpenses) {
+    
+    console.log(key)
+    const itemDiv = document.createElement('div');
+    const descText = document.createElement('span');
+    const amountText = document.createElement('span');
+
+    descText.textContent = key;
+    amountText.textContent = totalExpenses[key];
+
+    itemDiv.appendChild(descText);
+    itemDiv.appendChild(amountText)
+    allExpensesDiv.appendChild(itemDiv)
+    }
+
+
+    
+
+  
+    
 
   }
 
@@ -48,7 +74,7 @@ function HomePage() {
           <span>Income <input type="number"  min="1" step="any" /></span>
           <button
             onClick={() => {
-              dispatch(setMonthlyIncome)
+              dispatch(setMonthlyIncome())
             }}
           >Add income</button>
         </div>
@@ -74,7 +100,7 @@ function HomePage() {
         
         </div>
 
-        <div>
+        <div id="allExpenses">
           
         </div>
      

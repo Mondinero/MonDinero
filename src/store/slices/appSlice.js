@@ -4,7 +4,7 @@ export const appSlice = createSlice({
   name: 'appSlice',
   initialState: {
     username: null,
-    firstName: 'Clyde',
+    firstName: null,
     errorMessage: '',
     monthlyIncome: '$150,000',
     expenses: {}
@@ -25,9 +25,8 @@ export const appSlice = createSlice({
       state.monthlyIncome = action.payload
     },
     setExpenses: (state, action) => {
-      for (let key in action) {
-        state.expenses[key] = action[key];
-      }
+      state.expenses = { ...state.expenses, ...action.payload};
+      
     }
   },
 

@@ -31,7 +31,7 @@ function LoginPage() {
       })
 
       const data = await response.json();
-      if (response.ok) {
+      if (response.status === 200) {
         dispatch(setUserName(username));
         dispatch(setFirstName(data.firstName));
         navigate('/')

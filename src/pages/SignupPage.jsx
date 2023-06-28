@@ -36,10 +36,10 @@ function SignupPage () {
         
       })
       const data = await response.json();
-      if (response.ok) {
+      if (response.status === 200) {
         dispatch(setFirstName(firstName));
         dispatch(setUserName(username));
-        navigate('/');
+        navigate('/homePage');
       } else {
         dispatch(setErrorMsg('The username has been taken'))
       }
